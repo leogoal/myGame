@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="BgViewSkin" width="900" height="1048" xmlns:e="http://ns.egret.com/eui"
         xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="img_bg" source="" horizontalCenter="0" verticalCenter="0" />
-	<e:Label id="txt_cpr" text="适龄提示：18周岁以上；游戏著作权人：杭州九迁网络科技有限公司；出版服务单位：华东理工大学电子音像出版社\n批准文号: 沪新出科数【2014】739号 出版物号：ISBN 978-7-89390-014-3" anchorOffsetX="0" width="720" anchorOffsetY="0" height="94" size="14" bottom="15" textColor="0x907550" lineSpacing="10" textAlign="center" verticalAlign="bottom" horizontalCenter="0"/>
+	<e:Image id="img_bg" horizontalCenter="0" verticalCenter="0"  source="resource/assets/qufu_img/qf_bg0.jpg"/>
+	<e:Label id="txt_cpr" text="适龄提示：18周岁以上；游戏著作权人：杭州九迁网络科技有限公司；出版服务单位：华东理工大学电子音像出版社\n批准文号: 沪新出科数【2014】739号 出版物号：ISBN 978-7-89390-014-3" anchorOffsetX="0" width="720" anchorOffsetY="0" height="94" size="14" bottom="15" textColor="0x907550" lineSpacing="10" textAlign="center" verticalAlign="bottom" horizontalCenter="0" visible="false"/>
 	<e:Label id="txt_desc" text="抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。" anchorOffsetX="0" width="100%" anchorOffsetY="0" height="50" size="14" lineSpacing="8" textAlign="center" textColor="0xe1dac0" horizontalCenter="0" y="14"/>
 	<e:Group anchorOffsetX="0" anchorOffsetY="0" bottom="216" horizontalCenter="0">
 		<e:Image scaleX="1" scaleY="1" horizontalCenter="0"  source="qf_img_0"/>
@@ -10,7 +10,7 @@
 		         textColor="0xd9d9d9"  horizontalCenter="-60" verticalCenter="0"/>
 		<e:Label id="txt_huanqu" text="点击换区" textColor="0x3ef369" size="22"  horizontalCenter="60" verticalCenter="0"/>
 	</e:Group>
-	<e:Button id="btn_notice" label="" y="100" anchorOffsetX="36" anchorOffsetY="36" x="814">
+	<e:Button id="btn_notice" label="" y="100" anchorOffsetX="36" anchorOffsetY="36" right="60">
 		<e:skinName>
 			<e:Skin states="up,down,disabled">
 			<e:Image width="100%" height="100%" source="qf_btn_0" scaleX.down="0.8" scaleY.down="0.8"/>

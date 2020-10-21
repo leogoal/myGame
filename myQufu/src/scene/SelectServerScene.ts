@@ -15,7 +15,9 @@ namespace qufu {
 
         public show(): void {
             super.show();
-            this._stage.addChild(this.bgView);
+            let self = this;
+            self._stage.addChild(self.bgView);
+            self.onResize();
         }
 
         private openNoticeView(event: egret.Event): void {
