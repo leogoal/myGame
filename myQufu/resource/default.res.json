@@ -1,9 +1,16 @@
 {
 	"groups": [
 		{
-			"keys": "",
+			"keys": "qufu_preload-sheet_json",
 			"name": "preload"
 		}
 	],
-	"resources": []
+	"resources": [
+		{
+			"url": "assets/qufu_preload/qufu_preload-sheet.json",
+			"type": "sheet",
+			"name": "qufu_preload-sheet_json",
+			"subkeys": "com_bgi_0,com_btn_00,com_btn_01,qf_bgi_0,qf_btn_0,qf_btn_1,qf_btn_2,qf_btn_3,qf_icon_0,qf_icon_1,qf_state_0,qf_state_1,qf_state_2,qf_state_3,qf_txt_0,qf_txt_1"
+		}
+	]
 }
