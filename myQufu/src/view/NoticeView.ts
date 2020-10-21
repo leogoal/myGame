@@ -24,8 +24,8 @@ namespace qufu {
 
 		public onResize(nW, nH): void {
             let self = this;
-			self.x = (nW - self.width) >> 1;
-			self.y = (nH - self.height) >> 1;
+			self.x = (nW - 700) >> 1;
+			self.y = (nH - 501) >> 1;
 		}
 
 		public dispose(): void {
