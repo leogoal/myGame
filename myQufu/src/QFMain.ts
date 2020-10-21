@@ -113,7 +113,7 @@ namespace qufu {
      * Create scene interface
      */
     protected createGameScene(): void {
-
+        SceneManager.Instance.changeScene(SelectServerScene);
     }
 
 }

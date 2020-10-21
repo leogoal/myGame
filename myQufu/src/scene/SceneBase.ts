@@ -1,6 +1,6 @@
 namespace qufu {
     export class SceneBase {
-        private _stage: egret.Stage;
+        protected _stage: egret.Stage;
 
         public constructor() {
             this._stage = SceneManager.Instance._stage;

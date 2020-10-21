@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="NoticeViewSkin" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" width="700" height="501">
+    <e:Group anchorOffsetY="0" rotation="0.05">
+        <e:Image anchorOffsetY="0" anchorOffsetX="0" scale9Grid="185,80,1,1" x="0" y="0"  source="com_bgi_0" width="700" height="500"/>
+        <e:Image anchorOffsetX="0" anchorOffsetY="0" y="17"
+                  source="qf_txt_0" horizontalCenter="0"/>
+        <e:Image x="301" y="18" source="qufu_title_gd_png" />
+        <e:Button id="btn_close" label="" right="-8">
+					<e:skinName>
+						<e:Skin states="up,down,disabled">
+						<e:Image width="100%" height="100%" source="com_btn_01" source.down="com_btn_00"/>
+						<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+						</e:Skin>
+					</e:skinName>
+        </e:Button>
+        <e:Scroller width="580" height="360" anchorOffsetX="0" anchorOffsetY="0" y="80" scrollPolicyH="off"
+                    horizontalCenter="0">
+            <e:Group anchorOffsetX="0" width="580" anchorOffsetY="0" height="360" x="0" y="-1.52">
+                <e:Label id="txt_content" text="1111111111111111111" anchorOffsetX="0" width="580" anchorOffsetY="0"
+                         textColor="0xe1e1e1" size="16" lineSpacing="7" fontFamily="SimHei" />
+            </e:Group>
+        </e:Scroller>
+    </e:Group>
+</e:Skin>
