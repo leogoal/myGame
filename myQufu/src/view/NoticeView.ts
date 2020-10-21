@@ -8,12 +8,12 @@ namespace qufu {
             let self = this;
 			super.createChildren();
 			self.skinName = "NoticeViewSkin";
-			// if (notice) {
-			// 	let htmlText: egret.HtmlTextParser = new egret.HtmlTextParser();
-			// 	self.txt_content.textFlow = htmlText.parse(notice);
-			// } else {
-			// 	self.txt_content.text = "";
-			// }
+			if (qfNoticeTxt) {
+				let htmlText: egret.HtmlTextParser = new egret.HtmlTextParser();
+				self.txt_content.textFlow = htmlText.parse(qfNoticeTxt);
+			} else {
+				self.txt_content.text = "";
+			}
 
 			self.btn_close.addEventListener(egret.TouchEvent.TOUCH_TAP, self.onClose, self);
 		}

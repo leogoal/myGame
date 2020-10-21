@@ -114,6 +114,7 @@ namespace qufu {
      */
     protected createGameScene(): void {
         SceneManager.Instance.changeScene(SelectServerScene);
+        requestTxtInfo();
     }
 
 }
