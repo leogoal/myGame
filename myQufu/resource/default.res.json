@@ -10,7 +10,7 @@
 			"url": "assets/qufu_preload/qufu_preload-sheet.json",
 			"type": "sheet",
 			"name": "qufu_preload-sheet_json",
-			"subkeys": "com_bgi_0,com_btn_00,com_btn_01,qf_bgi_0,qf_btn_0,qf_btn_1,qf_btn_2,qf_btn_3,qf_icon_0,qf_icon_1,qf_state_0,qf_state_1,qf_state_2,qf_state_3,qf_txt_0,qf_txt_1"
+			"subkeys": "com_bgi_0,com_btn_00,com_btn_01,qf_btn_0,qf_btn_00,qf_btn_01,qf_btn_1,qf_btn_10,qf_btn_11,qf_btn_20,qf_btn_21,qf_btn_30,qf_btn_31,qf_icon_0,qf_icon_1,qf_img_0,qf_img_1,qf_img_2,qf_state_0,qf_state_1,qf_state_2,qf_state_3,qf_txt_0,qf_txt_1,qf_txt_2"
 		}
 	]
 }
