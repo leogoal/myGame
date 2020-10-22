@@ -1,11 +1,11 @@
-class PreLoadingState implements IGameState {
+class PreLoadingState implements I_GameState {
 
-    public gameState(): GameStateType {
-        return GameStateType.PreLoading;
+    public gameState(): E_GameStateType {
+        return E_GameStateType.PreLoading;
     }
 
     public enter(): void {
-        console.log("PreLoadingState");
+        console.log("--PreLoadingState");
         let self = this;
 
         //inject the custom material parser
@@ -29,12 +29,10 @@ class PreLoadingState implements IGameState {
             mStage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
             await this.loadTheme();
+
             await RES.loadGroup("preload", 0, loadingView).then(() => {
-                console.log("resolveing")
                 MtwGame.Instance.init1();
-                GameStateManager.Instance.changeGameState(GameStateType.Loading);
-            }, () => {
-                console.log("rejecting")
+                GameStateManager.Instance.changeGameState(E_GameStateType.Loading);
             });
             mStage.removeChild(loadingView);
         }
@@ -49,7 +47,6 @@ class PreLoadingState implements IGameState {
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
             let theme = new eui.Theme("resource/default.thm.json", mStage);
             theme.once(eui.UIEvent.COMPLETE, () => {
-                console.log("doresolve")
                 resolve();
             }, this);
 

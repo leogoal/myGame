@@ -23,6 +23,9 @@ class MtwGame {
         ConfigManager.init();
         UIManager.init();
         NoticeManager.init();
+        GameStateManager.Instance.init();
+        GameStateManager.Instance.changeGameState(E_GameStateType.PreLoading)
+
     }
 
     public init1(): void {
