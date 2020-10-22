@@ -28,26 +28,139 @@ class MtwGame {
         SecondTimerUtil.Instance.init();
 
         /**init1 */
+        EntityManager.init();
+        Shadow.init();
+        CacheManager.Instance.init();
+
+        self.addUpdateRender(QsMovieClipManager.Instance);
+        self.addUpdateLogicRender(DisposeManager.Instance);
+
         mStage.on(egret.Event.RESIZE, self.onResizeHandler, self);
+        mStage.on(egret.Event.ACTIVATE, self.onActivateHandler, self);
+        mStage.on(egret.Event.DEACTIVATE, self.onDEActivateHandler, self);
     }
 
 
-    public init1(): void {
+    public updateTime(gameTime: GameTime): void {
+        const renders = this.renders;
+        for(let render of renders) {
+            render.update(gameTime);
+        }
+    }
+
+    private updateLogicCount: number = 0;
+    public updateLogicTime(gameTime: GameTime): void {
         let self = this;
+        emIns.updateLogic(gameTime);
+        
+        self.updateLogicCount++;
+        if(self.updateLogicCount > 3) {
+            const logicRenders = self.logicRenders;
+            for(let logicRender of logicRenders) {
+                logicRender.updateLogic(gameTime);
+            }
+            self.updateLogicCount = 0;
+        }
+    }
+
+    private renders: IUpdateable[] = [];
+    public addUpdateRender(render: IUpdateable): void {
+        if(this.renders.indexOf(render) === -1) {
+            this.renders.push(render);
+        }
+    }
+
+    public removeUpdateRender(render: IUpdateable): void {
+        const index: number = this.renders.indexOf(render);
+        if(index > -1) {
+            this.renders.splice(index, 1);
+        }
+    }
+
+    private logicRenders: IUpdateLogicable[] = [];
+    public addUpdateLogicRender(logicRender: IUpdateLogicable): void {
+        if(this.logicRenders.indexOf(logicRender) === -1) {
+            this.logicRenders.push(logicRender);
+        }
+    }
+
+    public removeUpdateLogicRender(logicRender: IUpdateLogicable): void {
+        const index: number = this.logicRenders.indexOf(logicRender);
+        if(index > -1) {
+            this.logicRenders.splice(index, 1);
+        }
+    }
+
+    private onActivateHandler(e: egret.Event): void {
+
+    }
+
+    private onDEActivateHandler(e: egret.Event): void {
+
     }
 
     private onResizeHandler(e: egret.Event): void {
+        let self = this;
+
         GameSceneManager.Instance.resize();
-        
+        GameEventCenter.Instance.dispatcher(E_GameEvent.Resize, { w: mStage.stageWidth, h: self.getStageHeight() });
+        self.offsetView.y = (mStage.stageHeight - self.getStageHeight()) >> 1;
+        self.checkOffsetbg();
+    }
+
+    private stageH: number;
+    public getStageHeight(): number {
+        let self = this;
+        if (!self.stageH) {
+            const gh = my_gameVars.gameHeight;
+            const sh = mStage.stageHeight;
+            if (gh > 0) {
+                self.stageH = sh > gh ? gh : sh;
+            }
+            self.stageH = sh;
+        }
+        return self.stageH;
+    }
+
+    private upret: eui.Rect;
+    private downret: eui.Rect;
+
+    private checkOffsetbg(): void {
+        let self = this;
+        if (self.offsetView.y > 0) {
+			if (!self.upret) {
+				self.upret = new eui.Rect();
+				mStage.addChild(self.upret);
+			}
+			if (!self.downret) {
+				self.downret = new eui.Rect();
+				mStage.addChild(self.downret);
+			}
+			self.downret.fillColor = 0;
+			self.upret.fillColor = 0;
+			self.downret.width = self.upret.width = mStage.stageWidth;
+			self.downret.height = self.upret.height = self.offsetView.y;
+			self.downret.y = mStage.stageHeight - self.offsetView.y;
+		}
+		else {
+			if (self.upret) {
+				self.upret.removeSelf();
+				self.upret = null;
+			}
+			if (self.downret) {
+				self.downret.removeSelf();
+				self.downret = null;
+			}
+		}
     }
 }
 
 interface IUpdateable {
     enabled: boolean;
-	update(gameTime: GameTime): void;
+    update(gameTime: GameTime): void;
 }
 
 interface IUpdateLogicable {
     enabled: boolean;
-	updateLogic(gameTime: GameTime): void;
+    updateLogic(gameTime: GameTime): void;
 }

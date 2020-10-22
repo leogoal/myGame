@@ -31,7 +31,6 @@ class PreLoadingState implements I_GameState {
             await this.loadTheme();
 
             await RES.loadGroup("preload", 0, loadingView).then(() => {
-                MtwGame.Instance.init1();
                 GameStateManager.Instance.changeGameState(E_GameStateType.Loading);
             });
             mStage.removeChild(loadingView);
