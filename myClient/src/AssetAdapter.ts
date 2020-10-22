@@ -50,6 +50,7 @@ class AssetAdapter implements eui.IAssetAdapter {
             }
         }
         else {
+            //1 RES.NCImg 自定义资源解释器
             RES.getResByUrl(source, onGetRes, this, RES.ResourceItem.TYPE_IMAGE);
         }
     }

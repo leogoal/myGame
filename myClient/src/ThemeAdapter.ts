@@ -54,12 +54,28 @@ class ThemeAdapter implements eui.IThemeAdapter {
             }, this);
         }
         else if (typeof generateEUI2 !== 'undefined') {
-            RES.getResByUrl("resource/gameEui.json", (data, url) => {
-                window["JSONParseClass"]["setData"](data);
-                egret.callLater(() => {
-                    onSuccess.call(thisObject, generateEUI2);
-                }, this);
-            }, this, RES.ResourceItem.TYPE_JSON);
+            if (DEBUG) {
+                RES.getResByUrl("resource/gameEui.json", (data, url) => {
+                    window["JSONParseClass"]["setData"](data);
+                    egret.callLater(() => {
+                        onSuccess.call(thisObject, generateEUI2);
+                    }, this);
+                }, this, RES.ResourceItem.TYPE_JSON);
+            } else {
+                //1 
+
+                // RES.getResByUrl(ResUrl.url("resource/gameEui", ResourceType.DataZip), (res, url: string) => {
+                //     //解压缩
+                //     var inflate = new Zlib.Inflate(new Uint8Array(res));
+                //     var deplain = inflate.decompress();
+                //     let outDat = new egret.ByteArray(deplain);
+                //     let o = outDat.readUTFBytes(deplain.length);
+                //     window["JSONParseClass"]["setData"](JSON.parse(o));
+                //     egret.callLater(() => {
+                //         onSuccess.call(thisObject, generateEUI2);
+                //     }, this);
+                // });
+            }
         }
         else if (typeof generateJSON !== 'undefined') {
             if (url.indexOf(".exml") > -1) {
