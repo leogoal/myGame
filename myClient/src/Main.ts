@@ -33,34 +33,24 @@ class Main extends eui.UILayer {
     protected createChildren(): void {
         super.createChildren();
         let self = this;
-        self.initEnginSetting();
-        self.initGameSetting();
 
-        egret.lifecycle.addLifecycleListener((context) => {
-            // custom lifecycle plugin
-        })
+        // egret.lifecycle.addLifecycleListener((context) => {
+        //     // custom lifecycle plugin
+        // })
 
-        egret.lifecycle.onPause = () => {
-            egret.ticker.pause();
-        }
+        // egret.lifecycle.onPause = () => {
+        //     egret.ticker.pause();
+        // }
 
-        egret.lifecycle.onResume = () => {
-            egret.ticker.resume();
-        }
+        // egret.lifecycle.onResume = () => {
+        //     egret.ticker.resume();
+        // }
 
-        //inject the custom material parser
-        //注入自定义的素材解析器
-        let assetAdapter = new AssetAdapter();
-        egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
-        egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-
-
-        this.runGame().catch(e => {
-            console.log(e);
-        })
+        self.doSomeEngineSetting();
+        self.startGame();
     }
 
-    private initEnginSetting(): void {
+    private doSomeEngineSetting(): void {
         let self = this;
         RES.setMaxLoadingThread(6);
         RES.registerVersionController(new GameVersionController());
@@ -69,7 +59,7 @@ class Main extends eui.UILayer {
 
     }
 
-    private initGameSetting(): void {
+    private startGame(): void {
         let self = this;
         //1 小游戏 加速各种销毁
         //1 ios h5的性能较差？setMaxLoadingThread需要设置较小值 # 线程忙碌先别播放声音？
@@ -87,34 +77,4 @@ class Main extends eui.UILayer {
         MtwGame.Instance.init();
     }
 
-    private async runGame() {
-        await this.loadResource()
-    }
-
-    private async loadResource() {
-        try {
-            const loadingView = new LoadingUI();
-            this.stage.addChild(loadingView);
-            await RES.loadConfig("resource/default.res.json", "resource/");
-            await this.loadTheme();
-            await RES.loadGroup("preload", 0, loadingView);
-            this.stage.removeChild(loadingView);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
-
-    private loadTheme() {
-        return new Promise((resolve, reject) => {
-            // load skin theme configuration file, you can manually modify the file. And replace the default skin.
-            //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("resource/default.thm.json", this.stage);
-            theme.addEventListener(eui.UIEvent.COMPLETE, () => {
-                resolve();
-            }, this);
-
-        })
-    }
-  
 }

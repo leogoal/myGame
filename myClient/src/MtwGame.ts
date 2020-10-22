@@ -22,5 +22,10 @@ class MtwGame {
         DataManager.Instance.init();
         ConfigManager.init();
         UIManager.init();
+        NoticeManager.init();
+    }
+
+    public init1(): void {
+        let self = this;
     }
 }
