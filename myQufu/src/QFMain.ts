@@ -33,6 +33,8 @@ namespace qufu {
     protected createChildren(): void {
         super.createChildren();
 
+        RES.setMaxLoadingThread(8);
+        RES.registerVersionController(new QufuVersionController());
         this.initGameSet();
 
         egret.lifecycle.addLifecycleListener((context) => {
@@ -62,17 +64,13 @@ namespace qufu {
     }
 
     private initGameSet(): void {
-        RES.registerVersionController(new QufuVersionController());
-        //1 ios 设置为1或2
-        RES.setMaxLoadingThread(6);
-
         //1 表明指定的地址是支持跨域的 h5的新规定
         /**
          * anonymous ：如果使用这个值的话就会在请求中的 header 中的带上 Origin 属性，但请求不会带上 cookie 和其他的一些认证信息。
            use-credentials ：这个就同时会在跨域请求中带上 cookie 和其他的一些认证信息。
          */
         egret.ImageLoader.crossOrigin = "anonymous";
-        egret.TextField.default_fontFamily = "微软雅黑";
+        egret.TextField.default_fontFamily = "SimHei";
         SceneManager.Instance._stage = this.stage;
     }
 
