@@ -4,8 +4,10 @@ namespace qufu {
 
         protected onResize(): void {
             let self = this;
+            const nW: number = self._stage.stageWidth;
+            const nH: number = self._stage.stageHeight;
             if(self.view) {
-                self.view.onResize();
+                self.view.onResize(nW, nH);
             }
         }
 
@@ -14,6 +16,7 @@ namespace qufu {
             let self = this;
             self.view = new CreateRoleView();
             self._stage.addChild(self.view);
+            self.onResize();
         }
 
         public dispose(): void {

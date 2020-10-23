@@ -27,9 +27,9 @@ class CreateRoleView extends eui.Component {
     private onClickHandler(e: egret.Event): void {
         let self = this;
         const target = e.currentTarget;
-        if(self.btn_start === target) {
+        if (self.btn_start === target) {
 
-        } else if(self.txt_sj === target) {
+        } else if (self.txt_sj === target) {
 
         }
     }
@@ -39,8 +39,10 @@ class CreateRoleView extends eui.Component {
         self.img_model.source = `resource/assets/qufu_img/qf_gender_${self.radioGrp.selectedValue}.png`;
     }
 
-    public onResize(): void {
-
+    public onResize(nW: number, nH: number): void {
+        let self = this;
+        self.width = nW;
+        self.height = nH;
     }
 
     public dispose(): void {
