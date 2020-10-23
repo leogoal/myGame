@@ -26,9 +26,7 @@ class MtwGame {
         UIManager.init();
         NoticeManager.init();
         GameStateManager.Instance.init();
-        GameStateManager.Instance.changeGameState(E_GameStateType.PreLoading);
         SecondTimerUtil.Instance.init();
-
         /**init1 */
         EntityManager.init();
         Shadow.init();
@@ -40,6 +38,8 @@ class MtwGame {
         mStage.on(egret.Event.RESIZE, self.onResizeHandler, self);
         mStage.on(egret.Event.ACTIVATE, self.onActivateHandler, self);
         mStage.on(egret.Event.DEACTIVATE, self.onDEActivateHandler, self);
+
+        GameStateManager.Instance.changeGameState(E_GameStateType.PreLoading);
     }
 
 
