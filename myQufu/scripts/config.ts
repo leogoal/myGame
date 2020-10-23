@@ -40,7 +40,7 @@ const config: ResourceManagerConfig = {
                     new PCCustomPlugin(),
                     new UglifyPlugin([{
                         sources: ["main.js"],
-                        target: "main.min.js"
+                        target: "qufu.min.js"
                     }]),
                     // new RenamePlugin({
                     //     verbose: true, hash: 'crc32', matchers: [
