@@ -45,7 +45,7 @@ class MtwGame {
 
     public updateTime(gameTime: GameTime): void {
         const renders = this.renders;
-        for(let render of renders) {
+        for (let render of renders) {
             render.update(gameTime);
         }
     }
@@ -54,11 +54,11 @@ class MtwGame {
     public updateLogicTime(gameTime: GameTime): void {
         let self = this;
         emIns.updateLogic(gameTime);
-        
+
         self.updateLogicCount++;
-        if(self.updateLogicCount > 3) {
+        if (self.updateLogicCount > 3) {
             const logicRenders = self.logicRenders;
-            for(let logicRender of logicRenders) {
+            for (let logicRender of logicRenders) {
                 logicRender.updateLogic(gameTime);
             }
             self.updateLogicCount = 0;
@@ -67,28 +67,28 @@ class MtwGame {
 
     private renders: IUpdateable[] = [];
     public addUpdateRender(render: IUpdateable): void {
-        if(this.renders.indexOf(render) === -1) {
+        if (this.renders.indexOf(render) === -1) {
             this.renders.push(render);
         }
     }
 
     public removeUpdateRender(render: IUpdateable): void {
         const index: number = this.renders.indexOf(render);
-        if(index > -1) {
+        if (index > -1) {
             this.renders.splice(index, 1);
         }
     }
 
     private logicRenders: IUpdateLogicable[] = [];
     public addUpdateLogicRender(logicRender: IUpdateLogicable): void {
-        if(this.logicRenders.indexOf(logicRender) === -1) {
+        if (this.logicRenders.indexOf(logicRender) === -1) {
             this.logicRenders.push(logicRender);
         }
     }
 
     public removeUpdateLogicRender(logicRender: IUpdateLogicable): void {
         const index: number = this.logicRenders.indexOf(logicRender);
-        if(index > -1) {
+        if (index > -1) {
             this.logicRenders.splice(index, 1);
         }
     }
@@ -110,18 +110,15 @@ class MtwGame {
         self.checkOffsetbg();
     }
 
-    private stageH: number;
+
     public getStageHeight(): number {
         let self = this;
-        if (!self.stageH) {
-            const gh = my_gameVars.gameHeight;
-            const sh = mStage.stageHeight;
-            if (gh > 0) {
-                self.stageH = sh > gh ? gh : sh;
-            }
-            self.stageH = sh;
+        const gh = my_gameVars.gameHeight;
+        const sh = mStage.stageHeight;
+        if (gh > 0) {
+            return sh > gh ? gh : sh;
         }
-        return self.stageH;
+        return sh;
     }
 
     private upret: eui.Rect;
@@ -130,30 +127,30 @@ class MtwGame {
     private checkOffsetbg(): void {
         let self = this;
         if (self.offsetView.y > 0) {
-			if (!self.upret) {
-				self.upret = new eui.Rect();
-				mStage.addChild(self.upret);
-			}
-			if (!self.downret) {
-				self.downret = new eui.Rect();
-				mStage.addChild(self.downret);
-			}
-			self.downret.fillColor = 0;
-			self.upret.fillColor = 0;
-			self.downret.width = self.upret.width = mStage.stageWidth;
-			self.downret.height = self.upret.height = self.offsetView.y;
-			self.downret.y = mStage.stageHeight - self.offsetView.y;
-		}
-		else {
-			if (self.upret) {
-				self.upret.removeSelf();
-				self.upret = null;
-			}
-			if (self.downret) {
-				self.downret.removeSelf();
-				self.downret = null;
-			}
-		}
+            if (!self.upret) {
+                self.upret = new eui.Rect();
+                mStage.addChild(self.upret);
+            }
+            if (!self.downret) {
+                self.downret = new eui.Rect();
+                mStage.addChild(self.downret);
+            }
+            self.downret.fillColor = 0;
+            self.upret.fillColor = 0;
+            self.downret.width = self.upret.width = mStage.stageWidth;
+            self.downret.height = self.upret.height = self.offsetView.y;
+            self.downret.y = mStage.stageHeight - self.offsetView.y;
+        }
+        else {
+            if (self.upret) {
+                self.upret.removeSelf();
+                self.upret = null;
+            }
+            if (self.downret) {
+                self.downret.removeSelf();
+                self.downret = null;
+            }
+        }
     }
 }
 
