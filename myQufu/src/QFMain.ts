@@ -32,7 +32,8 @@ namespace qufu {
 
     protected createChildren(): void {
         super.createChildren();
-
+        
+        qf_resourceDirName = "qufu_resource";
         RES.setMaxLoadingThread(8);
         //1 表明指定的地址是支持跨域的 h5的新规定
         /**

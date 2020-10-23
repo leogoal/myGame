@@ -1,5 +1,5 @@
 declare let my_gameVars;
-
+declare let qf_resourceDirName;
 namespace qufu {
     export let qfNoticeTxt:string;
 
