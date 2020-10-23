@@ -42,6 +42,7 @@ namespace qufu {
         egret.ImageLoader.crossOrigin = "anonymous";
         egret.TextField.default_fontFamily = "SimHei";
         SceneManager.Instance._stage = this.stage;
+        SceneManager.Instance.rootContainer = this;
         RES.registerVersionController(new QufuVersionController());
 
         // egret.lifecycle.addLifecycleListener((context) => {
