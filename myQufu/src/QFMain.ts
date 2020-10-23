@@ -32,8 +32,7 @@ namespace qufu {
 
     protected createChildren(): void {
         super.createChildren();
-        
-        qf_resourceDirName = "qufu_resource";
+
         RES.setMaxLoadingThread(8);
         //1 表明指定的地址是支持跨域的 h5的新规定
         /**
@@ -64,7 +63,7 @@ namespace qufu {
         //注入自定义的素材解析器
         let assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
-        egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+        egret.registerImplementation("eui.IThemeAdapter", new QFThemeAdapter());
 
 
         this.runGame().catch(e => {
@@ -82,7 +81,7 @@ namespace qufu {
         try {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView); 
-            await RES.loadConfig("resource/default.res.json", "resource/");
+            await RES.loadConfig(`${resourceDir}/default.res.json`, `${resourceDir}/`);
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
@@ -96,7 +95,7 @@ namespace qufu {
         return new Promise((resolve, reject) => {
             // load skin theme configuration file, you can manually modify the file. And replace the default skin.
             //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
-            let theme = new eui.Theme("resource/default.thm.json", this.stage);
+            let theme = new eui.Theme(`${resourceDir}/default.thm.json`, this.stage);
             theme.addEventListener(eui.UIEvent.COMPLETE, () => {
                 resolve();
             }, this);

@@ -3,7 +3,7 @@ namespace qufu {
         public static onGetData(data): void {
             if(data) {
                 data = JSON.parse(data);
-                qfNoticeTxt = data.notice;
+                noticeTxt = data.notice;
             }
         }
     }

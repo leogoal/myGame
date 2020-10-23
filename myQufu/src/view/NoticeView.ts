@@ -8,9 +8,9 @@ namespace qufu {
             let self = this;
 			super.createChildren();
 			self.skinName = "NoticeViewSkin";
-			if (qfNoticeTxt) {
+			if (noticeTxt) {
 				let htmlText: egret.HtmlTextParser = new egret.HtmlTextParser();
-				self.txt_content.textFlow = htmlText.parse(qfNoticeTxt);
+				self.txt_content.textFlow = htmlText.parse(noticeTxt);
 			} else {
 				self.txt_content.text = "";
 			}

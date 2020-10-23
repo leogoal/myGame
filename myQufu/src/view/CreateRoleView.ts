@@ -37,7 +37,7 @@ namespace qufu {
 
     private onRadioChange(e: egret.Event): void {
         let self = this;
-        self.img_model.source = `resource/assets/qufu_img/qf_gender_${self.radioGrp.selectedValue}.png`;
+        self.img_model.source = `${resourceDir}/assets/qufu_img/qf_gender_${self.radioGrp.selectedValue}.png`;
     }
 
     public onResize(nW: number, nH: number): void {
