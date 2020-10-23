@@ -5,7 +5,7 @@ import * as path from 'path';
 import { UglifyPlugin, IncrementCompilePlugin, CompilePlugin, ManifestPlugin, ExmlPlugin, EmitResConfigFilePlugin, TextureMergerPlugin, RenamePlugin } from 'built-in';
 import { WxgamePlugin } from './wxgame/wxgame';
 import { BricksPlugin } from './bricks/bricks';
-import { CustomPlugin } from './myplugin';
+import { PCCustomPlugin } from './myplugin';
 
 const config: ResourceManagerConfig = {
 
@@ -35,18 +35,18 @@ const config: ResourceManagerConfig = {
             return {
                 outputDir,
                 commands: [
-                    new CustomPlugin(),
                     new CompilePlugin({ libraryType: "release", defines: { DEBUG: false, RELEASE: true } }),
-                    new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
+                    new ExmlPlugin('gjs'), // 非 EUI 项目关闭此设置
+                    new PCCustomPlugin(),
                     new UglifyPlugin([{
                         sources: ["main.js"],
                         target: "main.min.js"
                     }]),
-                    new RenamePlugin({
-                        verbose: true, hash: 'crc32', matchers: [
-                            { from: "**/*.js", to: "[path][name]_[hash].[ext]" }
-                        ]
-                    }),
+                    // new RenamePlugin({
+                    //     verbose: true, hash: 'crc32', matchers: [
+                    //         { from: "**/*.js", to: "[path][name]_[hash].[ext]" }
+                    //     ]
+                    // }),
                     new ManifestPlugin({ output: "manifest.json" })
                 ]
             }
