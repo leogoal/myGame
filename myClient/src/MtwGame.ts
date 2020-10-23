@@ -9,11 +9,13 @@ class MtwGame {
 
     public offsetView: egret.Sprite;
     public uiLayer: UILayer;
+    public lastFPS: number;
 
     public init(): void {
         let self = this;
         const offsetView: egret.Sprite = new egret.Sprite();
         self.offsetView = offsetView;
+        self.offsetView.name = "offsetView";
         mStage.addChild(offsetView);
 
         self.uiLayer = new UILayer();

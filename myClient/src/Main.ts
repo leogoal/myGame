@@ -68,13 +68,83 @@ class Main extends eui.UILayer {
         Capability.mobileUI = my_gameVars.isMobile;
 
         if (Capability.mobileUI) {
-           GameDefine.BottomBorder = 0;
-           self.stage.setContentSize(1136, 640);
-           self.stage.scaleMode = egret.StageScaleMode.FIXED_WIDE;
+            GameDefine.BottomBorder = 0;
+            self.stage.setContentSize(1136, 640);
+            self.stage.scaleMode = egret.StageScaleMode.FIXED_WIDE;
         }
 
         mStage = self.stage;
         MtwGame.Instance.init();
+        self.setIntervalFrame();
+        self.removeSelf();
+    }
+
+    private gameTime: GameTime;
+    private gameTimeLogic: GameTime;
+
+    private setIntervalFrame(): void {
+        let self = this;
+
+        self.gameTime = GameTime.Instance;
+        self.gameTimeLogic = GameTime.InstanceLogic;
+        self.gameTime.totalGameTime = self.gameTimeLogic.totalGameTime = egret.getTimer();
+
+        self.on(egret.Event.ENTER_FRAME, self.onEnterFrameHandler, self);
+
+        setInterval(() => {
+            self.onIntervalHandler()
+        }, 1000 / 60 * 4);
+    }
+
+    private totalTick: number = 0;
+    private totalTime: number = 0;
+    /**
+     * //1
+     * 1.QSMovie
+     * 2.EntityManager
+     * 3.CacheManager
+     * 4.ActionLoader
+     * 5.GameSceneManager
+     */
+    private onEnterFrameHandler(e: egret.Event): void {
+        let self = this;
+
+        const gameTime: GameTime = self.gameTime;
+        const time: number = gameTime.totalGameTime;
+        const now = egret.getTimer();
+
+        gameTime.elapsedGameTime = now - time;
+        gameTime.totalGameTime = now;
+
+        self.totalTime += gameTime.elapsedGameTime;
+        self.totalTick++;
+
+        if (self.totalTime > 1000) {
+            MtwGame.Instance.lastFPS = Math.min(Math.ceil(self.totalTick * 1000 / self.totalTime), egret.ticker.$frameRate);
+            self.totalTick = 0;
+            self.totalTime = self.totalTime % 1000;
+        }
+
+        MtwGame.Instance.updateTime(gameTime);
+    }
+
+    /**
+     * //1
+     * 1.DisposeManager
+     * 2.红点逻辑
+     * 3.GameSceneManager
+     */
+    private onIntervalHandler(): void {
+        let self = this;
+
+        const gameTimeLogic: GameTime = self.gameTimeLogic;
+        const time = gameTimeLogic.totalGameTime;
+        const now = egret.getTimer();
+
+        gameTimeLogic.elapsedGameTime = now - time;
+        gameTimeLogic.totalGameTime = now;
+
+        MtwGame.Instance.updateLogicTime(gameTimeLogic);
     }
 
 }
