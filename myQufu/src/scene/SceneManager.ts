@@ -11,13 +11,13 @@ namespace qufu {
         }
 
         private curScene: SceneBase;
-        public changeScene(SceneType: any): void {
+        public changeScene(Scene: {new ()}): void {
             let self = this;
             if(self.curScene) {
                 self.curScene.dispose();
             }
 
-            self.curScene = new SceneType();
+            self.curScene = new Scene();
             self.curScene.show();
         }
     }

@@ -71,7 +71,7 @@ namespace qufu {
     }
 
     private async runGame() {
-        requestTxtInfo();
+        requestInfo();
         await this.loadResource();
         SceneManager.Instance.changeScene(SelectServerScene);
     }
