@@ -42,16 +42,17 @@ namespace qufu {
         public dispose(): void {
             super.dispose();
             let self = this;
+         
+            self.bgView.removeEventListener("open noticeview", self.openNoticeView, self);
+            self.noticeView.removeEventListener("close noticeview", self.closeNoticeView, self);
 
             self.bgView.dispose();
             self.bgView = null;
-
+            
             if(self.noticeView) {
                 self.noticeView.dispose();
                 self.noticeView = null;
             }
-            self.bgView.removeEventListener("open noticeview", self.openNoticeView, self);
-            self.noticeView.removeEventListener("close noticeview", self.closeNoticeView, self);
         } 
     }
 }

@@ -24,7 +24,7 @@ namespace qufu {
         }
 
         private onStartHandler(e: egret.Event): void {
-            
+            SceneManager.Instance.changeScene(CreateRoleScence);
         }
 
         private showInfo(): void {

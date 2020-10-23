@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CreateRoleViewSkin" width="1920" height="1080" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="resource/assets/qufu_img/qf_bg1.jpg" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="img_model" horizontalCenter="0" verticalCenter="-30" source="resource/assets/qufu_img/qf_gender_0.png" scaleX="0.8" scaleY="0.8"/>
+	<e:Button id="btn_start" label="" scaleX="1" scaleY="1" horizontalCenter="0" bottom="120">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="qf_btn_11" source.down="qf_btn_10"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:RadioButton id="radio_0" label="" bottom="280" right="280">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="qf_btn_21" source.down="qf_btn_20"/>
+            <e:Image width="100%" height="100%" source="" source.down="qf_img_2" scaleX="0.5" scaleY="0.5"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+	<e:RadioButton id="radio_1" label="" bottom="280" right="80">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="qf_btn_31" source.down="qf_btn_30"/>
+			<e:Image width="100%" height="100%" source="" source.down="qf_img_2" scaleX="0.5" scaleY="0.5"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:RadioButton>
+	<e:Group right="116" bottom="184">
+		<e:Image source="qf_img_1" horizontalCenter="0"/>
+		<e:EditableText id="txt_input" text="" horizontalCenter="0" verticalCenter="0" width="200"/>
+		<e:Label id="txt_sj" text="随机" right="-67" verticalCenter="0"/>
+	</e:Group>
+</e:Skin>
