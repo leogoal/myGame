@@ -9,7 +9,7 @@ namespace qufu {
             let self = this;
             super.show();
 
-            if (my_gameVars.publish) {
+            if (!my_gameVars.publish) {
                 const manifestJson: any =  await self.getMainManifestJson("manifest.json");
                 self.loadArr = manifestJson.game;
             } else {

@@ -1,4 +1,5 @@
-class CreateRoleView extends eui.Component {
+namespace qufu {
+    export class CreateRoleView extends eui.Component {
     private img_model: eui.Image;
     private btn_start: eui.Button;
     private radio_0: eui.RadioButton;
@@ -28,7 +29,7 @@ class CreateRoleView extends eui.Component {
         let self = this;
         const target = e.currentTarget;
         if (self.btn_start === target) {
-
+            SceneManager.Instance.changeScene(LoadingScene);
         } else if (self.txt_sj === target) {
 
         }
@@ -52,4 +53,5 @@ class CreateRoleView extends eui.Component {
         self.txt_sj.removeEventListener(egret.TouchEvent.TOUCH_TAP, self.onClickHandler, self);
         self.radioGrp.removeEventListener(egret.Event.CHANGE, self.onRadioChange, self);
     }
+}
 }

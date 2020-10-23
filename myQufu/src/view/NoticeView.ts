@@ -19,7 +19,7 @@ namespace qufu {
 		}
 
 		private onClose(event: egret.TouchEvent): void {
-			this.dispatchEvent(new egret.Event("close noticeview"));
+			this.parent.removeChild(this);
 		}
 
 		public onResize(nW, nH): void {
