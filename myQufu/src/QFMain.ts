@@ -79,12 +79,12 @@ namespace qufu {
 
     private async loadResource() {
         try {
-            const loadingView = new LoadingUI();
-            this.stage.addChild(loadingView); 
+            // const loadingView = new LoadingUI();
+            // this.stage.addChild(loadingView); 
             await RES.loadConfig(`${resourceDir}/default.res.json`, `${resourceDir}/`);
             await this.loadTheme();
-            await RES.loadGroup("preload", 0, loadingView);
-            this.stage.removeChild(loadingView);
+            await RES.loadGroup("preload", 0);
+            // this.stage.removeChild(loadingView);
         }
         catch (e) {
             console.error(e);
