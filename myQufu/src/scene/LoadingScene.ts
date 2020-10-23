@@ -16,7 +16,7 @@ namespace qufu {
                 self.loadArr = [`main${my_gameVars.resVersion}.min.js`];
             }
             self.total = self.loadArr.length;
-
+            self.loadNext();
         }
 
         private getMainManifestJson(file: string) {
