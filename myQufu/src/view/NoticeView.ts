@@ -34,9 +34,6 @@ namespace qufu {
 			if (self.btn_close) {
 				self.btn_close.removeEventListener(egret.TouchEvent.TOUCH_TAP, self.onClose, self);
 			}
-			if (self.parent) {
-				self.parent.removeChild(self);
-			}
 		}
 	}
 }
