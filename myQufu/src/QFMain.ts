@@ -34,22 +34,29 @@ namespace qufu {
         super.createChildren();
 
         RES.setMaxLoadingThread(8);
+        //1 表明指定的地址是支持跨域的 h5的新规定
+        /**
+         * anonymous ：如果使用这个值的话就会在请求中的 header 中的带上 Origin 属性，但请求不会带上 cookie 和其他的一些认证信息。
+           use-credentials ：这个就同时会在跨域请求中带上 cookie 和其他的一些认证信息。
+         */
+        egret.ImageLoader.crossOrigin = "anonymous";
+        egret.TextField.default_fontFamily = "SimHei";
+        SceneManager.Instance._stage = this.stage;
         RES.registerVersionController(new QufuVersionController());
-        this.initGameSet();
 
-        egret.lifecycle.addLifecycleListener((context) => {
-            // custom lifecycle plugin
-        })
+        // egret.lifecycle.addLifecycleListener((context) => {
+        //     // custom lifecycle plugin
+        // })
 
-        egret.lifecycle.onPause = () => {
-            egret.ticker.pause();
-            console.log('进入后台');
-        }
+        // egret.lifecycle.onPause = () => {
+        //     egret.ticker.pause();
+        //     console.log('进入后台');
+        // }
 
-        egret.lifecycle.onResume = () => {
-            egret.ticker.resume();
-            console.log('进入前台');
-        }
+        // egret.lifecycle.onResume = () => {
+        //     egret.ticker.resume();
+        //     console.log('进入前台');
+        // }
 
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -63,20 +70,10 @@ namespace qufu {
         })
     }
 
-    private initGameSet(): void {
-        //1 表明指定的地址是支持跨域的 h5的新规定
-        /**
-         * anonymous ：如果使用这个值的话就会在请求中的 header 中的带上 Origin 属性，但请求不会带上 cookie 和其他的一些认证信息。
-           use-credentials ：这个就同时会在跨域请求中带上 cookie 和其他的一些认证信息。
-         */
-        egret.ImageLoader.crossOrigin = "anonymous";
-        egret.TextField.default_fontFamily = "SimHei";
-        SceneManager.Instance._stage = this.stage;
-    }
-
     private async runGame() {
-        await this.loadResource()
-        this.createGameScene();
+        requestTxtInfo();
+        await this.loadResource();
+        SceneManager.Instance.changeScene(SelectServerScene);
     }
 
     private async loadResource() {
@@ -104,16 +101,5 @@ namespace qufu {
 
         })
     }
-
-    private textfield: egret.TextField;
-    /**
-     * 创建场景界面
-     * Create scene interface
-     */
-    protected createGameScene(): void {
-        SceneManager.Instance.changeScene(SelectServerScene);
-        requestTxtInfo();
-    }
-
 }
 }

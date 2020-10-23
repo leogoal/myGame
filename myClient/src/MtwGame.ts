@@ -26,7 +26,7 @@ class MtwGame {
         UIManager.init();
         NoticeManager.init();
         GameStateManager.Instance.init();
-        GameStateManager.Instance.changeGameState(E_GameStateType.PreLoading)
+        GameStateManager.Instance.changeGameState(E_GameStateType.PreLoading);
         SecondTimerUtil.Instance.init();
 
         /**init1 */
