@@ -40,18 +40,18 @@ class ConfigManager {
                 self.mapDatas[mapid] = tableContent;
                 mapLength--;
             }
-        })
+        }, self, RES.NOCache)
     }
 
     private loadedCount: number = 0;
-    private TOTALLOADCOUNT: number = 6;
+    private TOTALLNUM: number = 6;
     private loadConfigData(): void {
         let self = this;
 
-        const TOTALLOADCOUNT: number = self.TOTALLOADCOUNT;
+        const TOTALLNUM: number = self.TOTALLNUM;
         let url: string;
         let curLoad: number = 0;
-        for (curLoad < TOTALLOADCOUNT; curLoad++;) {
+        for (curLoad < TOTALLNUM; curLoad++;) {
             url = ResUrl.Data + `${curLoad}config${my_gameVars.resVersion}.json`;
             RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON)
         }
@@ -59,5 +59,13 @@ class ConfigManager {
 
     private onLoadConfigData(data, url): void {
         let self = this;
+        ++self.loadedCount;
+        console.log(`${url} ok`);
+        RES.destroyRes(url);
+
+        if(self.loadedCount === self.TOTALLNUM) {
+            self.callback();
+            self.callback = null;
+        }
     }
 }

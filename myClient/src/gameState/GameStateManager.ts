@@ -33,6 +33,7 @@ interface I_GameState {
 const enum E_GameStateType {
     PreLoading,
     Loading,
-    Scene
+    Login,
+    Scene,
 }
 
