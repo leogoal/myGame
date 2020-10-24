@@ -18,7 +18,7 @@ class ConfigManager {
 
     private loadMapData(): void {
         let self = this;
-        let url: string = ResUrl.url(`map${my_gameVars.resVersion}`, ResourceType.DataZip);
+        let url: string = ResUrl.url(`map${my_gameVars.versionName}`, ResourceType.MapData);
 
         RES.getResByUrl(url, (res, url) => {
             //zlib解压缩
@@ -52,7 +52,7 @@ class ConfigManager {
         let url: string;
         let curLoad: number = 0;
         for (curLoad < TOTALLNUM; curLoad++;) {
-            url = ResUrl.Data + `${curLoad}config${my_gameVars.resVersion}.json`;
+            url = ResUrl.Data + `${curLoad}config${my_gameVars.versionName}.json`;
             RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON)
         }
     }

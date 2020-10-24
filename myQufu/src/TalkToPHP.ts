@@ -4,7 +4,8 @@ namespace qufu {
             if(data) {
                 data = JSON.parse(data);
                 noticeTxt = data.notice;
-                my_gameVars.resVersion = data.resVersion; 
+                my_gameVars.versionName = data.versionName; 
+                my_gameVars.versionTimeStamp = data.versionTimeStamp;
             }
         }
     }

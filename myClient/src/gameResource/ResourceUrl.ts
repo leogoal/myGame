@@ -3,14 +3,10 @@ class ResUrl {
 	}
 	public static readonly MapBackGround: string = "map/";
 	public static Model: string = "model/";
-
-	public static Data: string = "http://192.168.5.66:8082/";
-	public static ImageServer: string = "http://192.168.5.66:8081/";
+	public static Config: string = "config/"
 
 
-
-
-	public static readonly ConfigZipExt: string = ".dat";
+	public static readonly DatExt: string = ".dat";
 	public static readonly AudioExt: string = ".wav";
 	public static readonly mp3Ext: string = ".mp3";
 
@@ -32,11 +28,15 @@ class ResUrl {
 			case ResourceType.Map:
 				dir = ResUrl.MapBackGround + childDic;
 				break;
-			case ResourceType.DataZip:
-				return url = ResUrl.Data + fileName + ResUrl.ConfigZipExt;
+			case ResourceType.Config:
+				dir = ResUrl.Config + fileName + ResUrl.JsonExt;
+				break;
+			case ResourceType.MapData:
+				dir = ResUrl.Config + fileName + ResUrl.DatExt;
+				break;
 		}
 
-        url = ResUrl.ImageServer + dir;
+        url = my_gameVars.APILocaiton + dir;
 		return url;
 	}
 
@@ -47,8 +47,9 @@ class ResUrl {
 }
 
 const enum ResourceType {
+	MapData,
+	Config,
 	Model,
 	Map,
-	DataZip,
 	Audio,
 }
