@@ -1,15 +1,17 @@
 namespace qufu {
     export class LoadingView extends eui.Component {
-        public img_bg: eui.Image;
-        public grp_0: eui.Group;
-        public img_pro: eui.Image;
-        public txt_show: eui.Label;
+        private img_bg: eui.Image;
+        private grp_0: eui.Group;
+        private grp_1: eui.Group;
+        private img_pro: eui.Image;
+        private txt_show: eui.Label;
         private img_fakePro: eui.Image;
 
         private PROW: number = 724;
-        public createOk = false;
+        private createOk = false;
         private _wordsUpdateTime: number = 0;
-        private _movieClip: egret.MovieClip;
+        private _mc0: egret.MovieClip;
+        private _mc1: egret.MovieClip;
         private _movieData;
         private _movieImage: egret.Texture;
         private _disposed: boolean = false;
@@ -49,17 +51,25 @@ namespace qufu {
         private timer: number = 0;
         private doFakeProcess(): void {
             let self = this;
-
             self.clearTimer();
 
             if (!self._disposed) {
-                self.img_fakePro.width = 0;
-                const time: number = Math.floor(Math.random() * 10) / 10 * 5;
+                const num: number = Math.floor(Math.random() * 10) / 10;
 
                 self.timer = setTimeout(() => {
-                    self.img_fakePro.width = self.PROW;
+                    self.timer = 0;
+
+                    if(self.img_fakePro.width === 0) {
+                        self.img_fakePro.width = num * self.PROW;
+                    } else if (self.img_fakePro.width < self.PROW) {
+                        self.img_fakePro.width = self.PROW;
+                    } else if (self.img_fakePro.width === self.PROW) {
+                        self.img_fakePro.width = 0;
+                    }
+
+                    self.setMC1Pos();
                     self.doFakeProcess();
-                }, time)
+                }, num * 500)
             }
         }
 
@@ -68,6 +78,7 @@ namespace qufu {
             if (self.timer > 0) {
                 clearTimeout(self.timer);
                 self.timer = 0;
+                console.log("fakePro stop timer")
             }
         }
 
@@ -94,11 +105,18 @@ namespace qufu {
 
                 const mcFactory: egret.MovieClipDataFactory = new egret.MovieClipDataFactory(self._movieData, self._movieImage);
                 mcFactory.enableCache = false;
-                self._movieClip = new egret.MovieClip(mcFactory.generateMovieClipData("loadXingMc"));
-                self.grp_0.addChild(self._movieClip);
-                self._movieClip.play(-1);
-                self._movieClip.blendMode = egret.BlendMode.ADD;
-                self.setMoviePos();
+                self._mc0 = new egret.MovieClip(mcFactory.generateMovieClipData("loadXingMc"));
+                self.grp_0.addChild(self._mc0);
+                self._mc0.play(-1);
+                self._mc0.blendMode = egret.BlendMode.ADD;
+                self.setMC0Pos();
+
+
+                self._mc1 = new egret.MovieClip(mcFactory.generateMovieClipData("loadXingMc"));
+                self.grp_1.addChild(self._mc1);
+                self._mc1.play(-1);
+                self._mc1.blendMode = egret.BlendMode.ADD;
+                self.setMC1Pos();
             }
         }
 
@@ -106,7 +124,7 @@ namespace qufu {
             let self = this;
             if (self.createOk) {
                 self.img_pro.width = Math.ceil(self.PROW * (cur / total));
-                self.setMoviePos();
+                self.setMC0Pos();
 
                 let now: number = egret.getTimer();
                 if (self._wordsUpdateTime < now) {
@@ -117,12 +135,19 @@ namespace qufu {
             }
         }
 
-        private setMoviePos(): void {
+        private setMC0Pos(): void {
             let self = this;
+            if (self._mc0) {
+                self._mc0.x = self.img_pro.x + self.img_pro.width - 118;
+                self._mc0.y = self.img_pro.y - 30;
+            }
+        }
 
-            if (self._movieClip) {
-                self._movieClip.x = self.img_pro.x + self.img_pro.width - 118;
-                self._movieClip.y = self.img_pro.y - 30;
+        private setMC1Pos(): void {
+            let self = this;
+            if (self._mc1) {
+                self._mc1.x = self.img_fakePro.x + self.img_fakePro.width - 118;
+                self._mc1.y = self.img_fakePro.y - 30;
             }
         }
 
@@ -147,11 +172,11 @@ namespace qufu {
             self._movieImage = null;
             self.clearTimer();
 
-            if (self._movieClip) {
-                if (self._movieClip.parent) {
-                    self._movieClip.parent.removeChild(self._movieClip);
+            if (self._mc0) {
+                if (self._mc0.parent) {
+                    self._mc0.parent.removeChild(self._mc0);
                 }
-                self._movieClip = null;
+                self._mc0 = null;
                 RES.destroyRes(self.mcJSON);
                 RES.destroyRes(self.mcPNG);
             }

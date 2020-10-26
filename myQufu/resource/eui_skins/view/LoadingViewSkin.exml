@@ -3,14 +3,14 @@
         xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="img_bg" horizontalCenter="0"  verticalCenter="0" source="resource/assets/qufu_img/qf_bg0.jpg"/>
 	<e:Label id="txt_desc" text="抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。" anchorOffsetX="0" width="100%" anchorOffsetY="0" height="50" size="14" lineSpacing="8" textAlign="center" textColor="0xE1DAC0" horizontalCenter="0" y="14"/>
-	<e:Group id="grp_0" anchorOffsetX="0" width="900" height="85" horizontalCenter="0" bottom="165">
+	<e:Group anchorOffsetX="0" width="900" height="85" horizontalCenter="0" bottom="165">
 		<e:Label id="txt_show" text="正在连接服务器" anchorOffsetX="0" width="542" size="20" horizontalCenter="0" anchorOffsetY="0" height="25" textColor="0xe1dac0" y="60" textAlign="center"/>
-		<e:Group x="0" y="0">
+		<e:Group id="grp_0" x="0" y="0">
 			<e:Image y="22" x="80" height="26" source="qf_p0" width="742" scaleX="1" scaleY="1"/>
 			<e:Image id="img_pro" y="24" x="88" source="qf_p1" width="724" scaleX="1" scaleY="1"/>
 			<e:Image y="18" x="67" source="qf_p2" scaleX="1" scaleY="1"/>
 		</e:Group>
-		<e:Group x="0" y="74">
+		<e:Group id="grp_1" x="0" y="74">
 			<e:Image y="22" x="80" height="26" source="qf_p0" width="742" scaleX="1" scaleY="1"/>
 			<e:Image id="img_fakePro" y="24" x="88" source="qf_p1" width="724" scaleX="1" scaleY="1"/>
 			<e:Image y="18" x="67" source="qf_p2" scaleX="1" scaleY="1"/>
