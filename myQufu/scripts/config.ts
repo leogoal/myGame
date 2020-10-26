@@ -38,10 +38,10 @@ const config: ResourceManagerConfig = {
                     new CompilePlugin({ libraryType: "release", defines: { DEBUG: false, RELEASE: true } }),
                     new ExmlPlugin('gjs'), // 非 EUI 项目关闭此设置
                     new PCCustomPlugin(),
-                    new UglifyPlugin([{
-                        sources: ["main.js"],
-                        target: "qufu.min.js"
-                    }]),
+                    // new UglifyPlugin([{
+                    //     sources: ["main.js"],
+                    //     target: "qufu.min.js"
+                    // }]),
                     // new RenamePlugin({
                     //     verbose: true, hash: 'crc32', matchers: [
                     //         { from: "**/*.js", to: "[path][name]_[hash].[ext]" }
