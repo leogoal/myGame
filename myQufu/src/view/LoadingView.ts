@@ -11,6 +11,8 @@ class LoadingView extends eui.Component {
     private _movieData;
     private _movieImage: egret.Texture;
     private _disposed: boolean = false;
+    private mcJSON: string = "resource/assets/qufu_mc/loadXingMc.json";
+    private mcPNG: string = "resource/assets/qufu_mc/loadXingMc.png";
 
     private _words: string[] = [
         "完成每日元宝悬赏可获得海量主角经验，助你快速升级！",
@@ -37,8 +39,8 @@ class LoadingView extends eui.Component {
         self.skinName = "LoadingViewSkin";
         self.createOk = true;
 
-        RES.getResByUrl("resource/assets/qufu_mc/loadXingMc.json", self.loadedJsonHandler, self, RES.ResourceItem.TYPE_JSON);
-        RES.getResByUrl("resource/assets/qufu_mc/loadXingMc.json", self.loadedPngHandler, self, RES.ResourceItem.TYPE_IMAGE);
+        RES.getResByUrl(self.mcJSON, self.loadedJsonHandler, self, RES.ResourceItem.TYPE_JSON);
+        RES.getResByUrl(self.mcPNG, self.loadedPngHandler, self, RES.ResourceItem.TYPE_IMAGE);
     }
 
     private loadedJsonHandler(data, url: string): void {
@@ -57,8 +59,8 @@ class LoadingView extends eui.Component {
         let self = this;
         if (self._movieData && self._movieImage) {
             if (self._disposed) {
-                RES.destroyRes("img/loadXingMc.json");
-                RES.destroyRes("img/loadXingMc.png");
+                RES.destroyRes(self.mcJSON);
+                RES.destroyRes(self.mcPNG);
                 return;
             }
 
@@ -118,8 +120,8 @@ class LoadingView extends eui.Component {
                 self._movieClip.parent.removeChild(self._movieClip);
             }
             self._movieClip = null;
-            RES.destroyRes("resource/assets/qufu_mc/loadXingMc.json");
-            RES.destroyRes("resource/assets/qufu_mc/loadXingMc.json");
+            RES.destroyRes(self.mcJSON);
+            RES.destroyRes(self.mcPNG);
         }
 
         RES.destroyRes(self.img_bg.source as string);
