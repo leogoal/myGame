@@ -15,6 +15,7 @@ namespace qufu {
             }
             self.view = loadingView;
             self._stage.addChild(self.view);
+            self.onResize();
 
             if (!my_gameVars.publish) {
                 const manifestJson: any = await self.getMainManifestJson("manifest.json");
@@ -38,7 +39,7 @@ namespace qufu {
             let self = this;
             if (self.loaded >= this.total) {
                 const Main = egret.getDefinitionByName("Main");
-                SceneManager.Instance.rootContainer.addChild(new Main());
+                Main && SceneManager.Instance.rootContainer.addChild(new Main());
                 SceneManager.Instance.changeScene(null);
             } else {
 
