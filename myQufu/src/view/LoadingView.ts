@@ -116,6 +116,10 @@ namespace qufu {
         public dispose(): void {
             let self = this;
 
+            if(self.parent) {
+                self.parent.removeChild(self);
+            }
+
             if (self._movieClip) {
                 if (self._movieClip.parent) {
                     self._movieClip.parent.removeChild(self._movieClip);
@@ -124,6 +128,9 @@ namespace qufu {
                 RES.destroyRes(self.mcJSON);
                 RES.destroyRes(self.mcPNG);
             }
+
+            self._movieData = null;
+            self._movieImage = null;
 
             RES.destroyRes(self.img_bg.source as string);
             self._disposed = true;

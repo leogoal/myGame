@@ -65,9 +65,8 @@ class ConfigManager {
         let self = this;
         ++self.loadedCount;
         console.log(`${url} ok`);
-
-        loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
-
+        loadingView && loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
+        
         if (self.loadedCount === self.TOTALLNUM) {
             self.callback();
             self.callback = null;

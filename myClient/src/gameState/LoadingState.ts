@@ -18,12 +18,8 @@ class LoadingState implements I_GameState {
         cm.initConfigData(() => {
             GameStateManager.Instance.changeGameState(E_GameStateType.Login);
             
-            if (loadingView) {
-                if(loadingView.parent) {
-                    loadingView.parent.removeChild(loadingView);
-                }
-                loadingView = null;
-            }
+            loadingView && loadingView.dispose();
+            loadingView = null;
         })
     }
 
