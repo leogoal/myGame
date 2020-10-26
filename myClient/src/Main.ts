@@ -46,25 +46,21 @@ class Main extends eui.UILayer {
         //     egret.ticker.resume();
         // }
 
-        self.doSomeEngineSetting();
+        self.doSomeGameSetting();
         self.startGame();
     }
 
-    private doSomeEngineSetting(): void {
+    private doSomeGameSetting(): void {
         let self = this;
         RES.setMaxLoadingThread(6);
         RES.registerVersionController(new GameVersionController());
-
+        mStage = self.stage;
         //1 自定义屏幕适配器
 
-    }
-
-    private startGame(): void {
-        let self = this;
         //1 小游戏 加速各种销毁
         //1 ios h5的性能较差？setMaxLoadingThread需要设置较小值 # 线程忙碌先别播放声音？
         const deviceAgent = navigator.userAgent.toLowerCase();
-        if(deviceAgent.indexOf("ipad") > -1 || deviceAgent.indexOf("iphone") > -1) {
+        if (deviceAgent.indexOf("ipad") > -1 || deviceAgent.indexOf("iphone") > -1) {
             my_gameVars.isIos = true;
         } else {
             my_gameVars.isIos = false;
@@ -79,7 +75,11 @@ class Main extends eui.UILayer {
             self.stage.scaleMode = egret.StageScaleMode.FIXED_WIDE;
         }
 
-        mStage = self.stage;
+    }
+
+    private startGame(): void {
+        let self = this;
+  
         MtwGame.Instance.init();
         self.setIntervalFrame();
         self.removeSelf();
