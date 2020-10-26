@@ -15,7 +15,11 @@ class GameStateManager {
         gState = new LoginState();
         self.gameStates[E_GameStateType.Login] = gState;
 
-        // gState = new 
+        gState = new HomeState();
+        self.gameStates[E_GameStateType.Home] = gState;
+
+        gState = new SceneState();
+        self.gameStates[E_GameStateType.Scene] = gState;
     }
 
     public changeGameState(stateType: E_GameStateType): void {
@@ -42,6 +46,7 @@ const enum E_GameStateType {
     PreLoading,
     Loading,
     Login,
+    Home,
     Scene,
 }
 

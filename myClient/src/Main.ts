@@ -63,6 +63,12 @@ class Main extends eui.UILayer {
         let self = this;
         //1 小游戏 加速各种销毁
         //1 ios h5的性能较差？setMaxLoadingThread需要设置较小值 # 线程忙碌先别播放声音？
+        const deviceAgent = navigator.userAgent.toLowerCase();
+        if(deviceAgent.indexOf("ipad") > -1 || deviceAgent.indexOf("iphone") > -1) {
+            my_gameVars.isIos = true;
+        } else {
+            my_gameVars.isIos = false;
+        }
 
         Capability.isWebgl = egret.Capabilities.renderMode === "webgl";
         Capability.mobileUI = my_gameVars.isMobile;

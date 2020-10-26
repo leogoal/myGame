@@ -6,6 +6,7 @@ class LoginState implements I_GameState {
 
 	public enter(): void {
 		console.log("--LoginState");
+		GameStateManager.Instance.changeGameState(E_GameStateType.Home);
 	}
 
 	exit(): void {
