@@ -1,6 +1,6 @@
 namespace qufu {
     export class LoadingScene extends SceneBase {
-        private view;
+        private view: LoadingView;
         private loadArr: any[];
         private total: number;
         private loaded: number = 0;
@@ -9,8 +9,14 @@ namespace qufu {
             let self = this;
             super.show();
 
+            if (!loadingView) {
+                loadingView = new LoadingView();
+            }
+            self.view = loadingView;
+            self._stage.addChild(self.view);
+
             if (!my_gameVars.publish) {
-                const manifestJson: any =  await self.getMainManifestJson("manifest.json");
+                const manifestJson: any = await self.getMainManifestJson("manifest.json");
                 self.loadArr = manifestJson.game;
             } else {
                 self.loadArr = [`main${my_gameVars.versionName}.min.js`];
@@ -26,25 +32,28 @@ namespace qufu {
                 }, this, RES.ResourceItem.TYPE_JSON)
             })
         }
-        
+
         private loadNext(): void {
             let self = this;
-            if(self.loaded >= this.total) {
+            if (self.loaded >= this.total) {
                 const Main = egret.getDefinitionByName("Main");
                 SceneManager.Instance.rootContainer.addChild(new Main());
                 SceneManager.Instance.changeScene(null);
             } else {
+
+                self.view.showPregress(self.loaded, self.total);
+
                 const script = document.createElement("script");
                 script.async = false;
 
                 const loadingItem = self.loadArr[self.loaded];
-                if(loadingItem == `main${my_gameVars.versionName}.min.js`) {
+                if (loadingItem == `main${my_gameVars.versionName}.min.js`) {
                     script.src = loadingItem;
                 } else {
                     script.src = `${loadingItem}?v=${Math.random()}`;
                 }
 
-                script.addEventListener("load", function(){
+                script.addEventListener("load", function () {
                     script.parentNode.removeChild(script);
                     script.removeEventListener('load', <EventListenerOrEventListenerObject>arguments.callee, false);
                     self.loaded++;
@@ -52,18 +61,27 @@ namespace qufu {
                 })
                 document.body.appendChild(script);
             }
-
-            
         }
 
         public onResize(): void {
-            if(this.view) {
+            let self = this;
 
+            if (self.view) {
+                const nW: number = self._stage.stageWidth;
+                const nH: number = self._stage.stageHeight;
+                self.view.onResize(nW, nH);
             }
         }
 
         public dispose(): void {
+            let self = this;
 
+            if (self.view) {
+                if (self.view.parent) {
+                    self.view.parent.removeChild(self.view);
+                }
+                self.view = null;
+            }
         }
     }
 }
