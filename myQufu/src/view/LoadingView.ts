@@ -37,8 +37,8 @@ class LoadingView extends eui.Component {
         self.skinName = "LoadingViewSkin";
         self.createOk = true;
 
-        RES.getResByUrl("img/loadXingMc.json", self.loadedJsonHandler, self, RES.ResourceItem.TYPE_JSON);
-        RES.getResByUrl("img/loadXingMc.png", self.loadedPngHandler, self, RES.ResourceItem.TYPE_IMAGE);
+        RES.getResByUrl("resource/assets/qufu_mc/loadXingMc.json", self.loadedJsonHandler, self, RES.ResourceItem.TYPE_JSON);
+        RES.getResByUrl("resource/assets/qufu_mc/loadXingMc.json", self.loadedPngHandler, self, RES.ResourceItem.TYPE_IMAGE);
     }
 
     private loadedJsonHandler(data, url: string): void {
@@ -118,8 +118,8 @@ class LoadingView extends eui.Component {
                 self._movieClip.parent.removeChild(self._movieClip);
             }
             self._movieClip = null;
-            RES.destroyRes("img/loadXingMc.json");
-            RES.destroyRes("img/loadXingMc.png");
+            RES.destroyRes("resource/assets/qufu_mc/loadXingMc.json");
+            RES.destroyRes("resource/assets/qufu_mc/loadXingMc.json");
         }
 
         RES.destroyRes(self.img_bg.source as string);
