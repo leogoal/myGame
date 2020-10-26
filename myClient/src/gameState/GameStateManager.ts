@@ -8,6 +8,14 @@ class GameStateManager {
 
         let gState: I_GameState = new PreLoadingState();
         self.gameStates[E_GameStateType.PreLoading] = gState;
+
+        gState = new LoadingState();
+        self.gameStates[E_GameStateType.Loading] = gState;
+
+        gState = new LoginState();
+        self.gameStates[E_GameStateType.Login] = gState;
+
+        // gState = new 
     }
 
     public changeGameState(stateType: E_GameStateType): void {

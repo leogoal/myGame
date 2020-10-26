@@ -50,9 +50,10 @@ class ConfigManager {
 
         const TOTALLNUM: number = self.TOTALLNUM;
         let url: string;
-        let curLoad: number = 0;
-        for (curLoad < TOTALLNUM; curLoad++;) {
-            url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config) ;
+
+        for (let curLoad: number = 0; curLoad < TOTALLNUM; curLoad++) {
+            url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config);
+            console.log('loading: ' + url);
             RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON)
         }
     }
@@ -63,7 +64,7 @@ class ConfigManager {
         console.log(`${url} ok`);
         RES.destroyRes(url);
 
-        if(self.loadedCount === self.TOTALLNUM) {
+        if (self.loadedCount === self.TOTALLNUM) {
             self.callback();
             self.callback = null;
         }
