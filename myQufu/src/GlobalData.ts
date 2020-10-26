@@ -5,6 +5,6 @@ namespace qufu {
     export let noticeTxt:string;
 
     export let requestInfo = () => {
-        HttpRequest.request(`${my_gameVars.APILocaiton}txt/list.txt`, TalkToPHP.onGetData, TalkToPHP)
+        HttpRequest.request(`${my_gameVars.APILocaiton}txt/list.txt?v=${new Date().getTime()}`, TalkToPHP.onGetData, TalkToPHP)
     }
 }
