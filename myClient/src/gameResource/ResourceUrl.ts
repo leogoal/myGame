@@ -36,7 +36,7 @@ class ResUrl {
 				break;
 		}
 
-        url = my_gameVars.APILocaiton + dir;
+        url = my_gameVars.APILocaiton + dir + my_gameVars.versionTimeS;
 		return url;
 	}
 
