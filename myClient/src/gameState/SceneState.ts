@@ -4,8 +4,15 @@ class SceneState implements I_GameState {
     }
     public enter(): void {
         console.log('--HomeState');
+        GameSceneManager.Instance.initCompnents();
 
-        
+        MtwGame.Instance.addUpdateRender(emIns);
+        MtwGame.Instance.addUpdateRender(CacheManager.Instance);
+        MtwGame.Instance.addUpdateRender(ActionLoader.Instance);
+
+        MtwGame.Instance.addUpdateRender(GameSceneManager.Instance);
+        MtwGame.Instance.addUpdateLogicRender(GameSceneManager.Instance);
+        GameSceneManager.Instance.resize();
     }
 
 
