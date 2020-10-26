@@ -49,12 +49,15 @@ namespace qufu {
         }
 
         private timer: number = 0;
+        private doTimes: number = 0;
         private doFakeProcess(): void {
             let self = this;
             self.clearTimer();
 
             if (!self._disposed) {
+                self.doTimes ++;
                 const num: number = Math.floor(Math.random() * 10) / 10;
+                const time: number = self.doTimes < 10 ? num * 100 : num * 500;
 
                 self.timer = setTimeout(() => {
                     self.timer = 0;
@@ -69,7 +72,7 @@ namespace qufu {
 
                     self.setMC1Pos();
                     self.doFakeProcess();
-                }, num * 500)
+                }, time)
             }
         }
 
