@@ -11,8 +11,19 @@ class LoadingState implements I_GameState {
     }
 
     private loadConfigData(): void {
-        cm.initConfigData(()=>{
-            GameStateManager.Instance.changeGameState(E_GameStateType.Login)
+        if (loadingView) {
+            loadingView.setText("加载配置资源");
+            loadingView.showPregress(0, 1);
+        }
+        cm.initConfigData(() => {
+            GameStateManager.Instance.changeGameState(E_GameStateType.Login);
+            
+            if (loadingView) {
+                if(loadingView.parent) {
+                    loadingView.parent.removeChild(loadingView);
+                }
+                loadingView = null;
+            }
         })
     }
 

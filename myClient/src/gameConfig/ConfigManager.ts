@@ -18,8 +18,11 @@ class ConfigManager {
 
     private loadMapData(): void {
         let self = this;
+        if(loadingView) {
+            loadingView.showPregress(1, 10);
+        }
+         
         let url: string = ResUrl.url(`map${my_gameVars.versionName}`, ResourceType.MapData);
-
         RES.getResByUrl(url, (res, url) => {
             //zlib解压缩
             const inflate = new Zlib.Inflate(new Uint8Array(res));
@@ -63,6 +66,8 @@ class ConfigManager {
         ++self.loadedCount;
         console.log(`${url} ok`);
         RES.destroyRes(url);
+
+        loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
 
         if (self.loadedCount === self.TOTALLNUM) {
             self.callback();

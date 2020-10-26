@@ -1,4 +1,5 @@
 declare let my_gameVars;
+declare let loadingView: any; 
 declare let mStage: egret.Stage;
 declare let cm: ConfigManager;
 declare let uim: UIManager;
