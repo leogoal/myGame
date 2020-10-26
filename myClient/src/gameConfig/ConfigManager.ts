@@ -57,7 +57,7 @@ class ConfigManager {
         for (let curLoad: number = 0; curLoad < TOTALLNUM; curLoad++) {
             url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config);
             console.log('loading: ' + url);
-            RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON)
+            RES.getResByUrl(url, self.onLoadConfigData, self, RES.NOCache);
         }
     }
 
@@ -65,7 +65,6 @@ class ConfigManager {
         let self = this;
         ++self.loadedCount;
         console.log(`${url} ok`);
-        RES.destroyRes(url);
 
         loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
 

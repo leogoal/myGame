@@ -78,12 +78,8 @@ namespace qufu {
         public dispose(): void {
             let self = this;
 
-            if (self.view) {
-                if (self.view.parent) {
-                    self.view.parent.removeChild(self.view);
-                }
-                self.view = null;
-            }
+            self.loadArr = null;
+            self.view = null;
         }
     }
 }
