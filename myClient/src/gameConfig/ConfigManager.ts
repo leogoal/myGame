@@ -52,7 +52,7 @@ class ConfigManager {
         let url: string;
         let curLoad: number = 0;
         for (curLoad < TOTALLNUM; curLoad++;) {
-            url = ResUrl.Data + `${curLoad}config${my_gameVars.versionName}.json`;
+            url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config) ;
             RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON)
         }
     }
