@@ -3,7 +3,7 @@ class SceneState implements I_GameState {
         return E_GameStateType.Scene;
     }
     public enter(): void {
-        console.log('--HomeState');
+        console.log('--SceneState');
         GameSceneManager.Instance.initCompnents();
 
         MtwGame.Instance.addUpdateRender(emIns);

@@ -105,7 +105,12 @@ class MtwGame {
         let self = this;
 
         GameSceneManager.Instance.resize();
-        GameEventCenter.Instance.dispatcher(E_GameEvent.Resize, { w: mStage.stageWidth, h: self.getStageHeight() });
+
+        const nW: number = mStage.stageWidth;
+        const nH: number = self.getStageHeight();
+        GameEventCenter.Instance.dispatcher(E_GameEvent.Resize, { w: nW, h: nH });
+        loadingView && (loadingView.onResize(nW, nH));
+
         self.offsetView.y = (mStage.stageHeight - self.getStageHeight()) >> 1;
         self.checkOffsetbg();
     }
