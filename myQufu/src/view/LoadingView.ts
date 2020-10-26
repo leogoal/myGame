@@ -4,6 +4,7 @@ namespace qufu {
         public grp_0: eui.Group;
         public img_pro: eui.Image;
         public txt_show: eui.Label;
+        private img_fakePro: eui.Image;
 
         private PROW: number = 724;
         public createOk = false;
@@ -42,6 +43,32 @@ namespace qufu {
 
             RES.getResByUrl(self.mcJSON, self.loadedJsonHandler, self, RES.ResourceItem.TYPE_JSON);
             RES.getResByUrl(self.mcPNG, self.loadedPngHandler, self, RES.ResourceItem.TYPE_IMAGE);
+            self.doFakeProcess();
+        }
+
+        private timer: number = 0;
+        private doFakeProcess(): void {
+            let self = this;
+
+            self.clearTimer();
+
+            if (!self._disposed) {
+                self.img_fakePro.width = 0;
+                const time: number = Math.floor(Math.random() * 10) / 10 * 5;
+
+                self.timer = setTimeout(() => {
+                    self.img_fakePro.width = self.PROW;
+                    self.doFakeProcess();
+                }, time)
+            }
+        }
+
+        private clearTimer(): void {
+            let self = this;
+            if (self.timer > 0) {
+                clearTimeout(self.timer);
+                self.timer = 0;
+            }
         }
 
         private loadedJsonHandler(data, url: string): void {
@@ -115,10 +142,10 @@ namespace qufu {
 
         public dispose(): void {
             let self = this;
-
-            if(self.parent) {
-                self.parent.removeChild(self);
-            }
+            self._disposed = true;
+            self._movieData = null;
+            self._movieImage = null;
+            self.clearTimer();
 
             if (self._movieClip) {
                 if (self._movieClip.parent) {
@@ -129,11 +156,11 @@ namespace qufu {
                 RES.destroyRes(self.mcPNG);
             }
 
-            self._movieData = null;
-            self._movieImage = null;
-
             RES.destroyRes(self.img_bg.source as string);
-            self._disposed = true;
+
+            if (self.parent) {
+                self.parent.removeChild(self);
+            }
         }
     }
 }
