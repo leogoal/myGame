@@ -94,7 +94,7 @@ namespace qufu {
             let self = this;
 
             if (self._movieClip) {
-                self._movieClip.x = self.img_pro.x + self.img_pro.width;
+                self._movieClip.x = self.img_pro.x + self.img_pro.width - 118;
                 self._movieClip.y = self.img_pro.y - 30;
             }
         }
