@@ -9,8 +9,9 @@ namespace qufu {
             let self = this;
             super.show();
 
-            if (!loadingView) {
-                loadingView = new LoadingView();
+            const loadingView: LoadingView = new LoadingView();
+            if (!window["loadingView"]) {
+                window["loadingView"] = loadingView;
             }
             self.view = loadingView;
             self._stage.addChild(self.view);
