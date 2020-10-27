@@ -36,12 +36,6 @@ class GameStateManager {
     }
 }
 
-interface I_GameState {
-    gameState(): E_GameStateType;
-    enter(): void;
-    exit(): void;
-}
-
 const enum E_GameStateType {
     PreLoading,
     Loading,

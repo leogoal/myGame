@@ -3,9 +3,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     public enabled: boolean = false;
     
     private mapTiles: MapTileManager;
-
     public root: egret.Sprite;
-
 
     private init: boolean = false;
     private mapConfig: MapConfig;
@@ -14,6 +12,8 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
 
     private _screenX: number;
     private _screenY: number;
+
+    // public curInstance: ARPGInstanceBase;
 
     public initCompnents(): void {
         let self = this;
@@ -51,6 +51,11 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     }
 
     public updateLogic(): void {
+
+    }
+
+    private destory(): void {
+        let self = this;
 
     }
 }

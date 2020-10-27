@@ -1,9 +1,4 @@
-interface ILimitedPoolItem {
-    disposePermanent(): void;
-    returnToPool(): void;
-}
-
-class LimitedPool<T extends ILimitedPoolItem> {
+class LimitedPool<T extends I_LimitedPoolItem> {
     private pool: T[];
     private max: number = 0;
     private creater: { new (): T };

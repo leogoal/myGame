@@ -158,13 +158,3 @@ class MtwGame {
         }
     }
 }
-
-interface IUpdateable {
-    enabled: boolean;
-    update(gameTime: GameTime): void;
-}
-
-interface IUpdateLogicable {
-    enabled: boolean;
-    updateLogic(gameTime: GameTime): void;
-}
