@@ -10,6 +10,6 @@ class MapData {
 
     public enterMap(mapId: number): void {
         this.curMapId = mapId;
-        this.config = cm.co
+        // this.config = cm.co
     }
 }

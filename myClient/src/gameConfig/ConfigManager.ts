@@ -58,7 +58,7 @@ class ConfigManager {
         for (let curLoad: number = 0; curLoad < TOTALLNUM; curLoad++) {
             url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config);
             console.log('loading: ' + url);
-            RES.getResByUrl(url, self.onLoadConfigData, self, RES.NOCache);
+            RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON);
         }
     }
 
@@ -67,6 +67,11 @@ class ConfigManager {
         ++self.loadedCount;
         console.log(`${url} ok`);
         loadingView && loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
+
+        const jsonfile = data;
+        for (let fieldName in jsonfile) {
+            self[fieldName] = jsonfile[fieldName];
+        } 
         
         if (self.loadedCount === self.TOTALLNUM) {
             self.callback();
