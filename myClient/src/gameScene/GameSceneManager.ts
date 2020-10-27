@@ -29,6 +29,10 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         }
     }
 
+    public changeMap(mapId: number): void {
+        gd.map.enterMap(mapId);
+    }
+
     public resize(): void {
         let self = this;
         const mapConfig: MapConfig = self.mapConfig;

@@ -13,6 +13,8 @@ class SceneState implements I_GameState {
         MtwGame.Instance.addUpdateRender(GameSceneManager.Instance);
         MtwGame.Instance.addUpdateLogicRender(GameSceneManager.Instance);
         GameSceneManager.Instance.resize();
+        
+        SingleARPGGame.Instance.startARPGGame();
     }
 
 
