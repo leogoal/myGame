@@ -1,5 +1,24 @@
 class MapTileManager {
+    private container: SceneLayer;
+
     private tilesInView: Array<Array<MapTile>>;
+    private mapWidth: number;
+    private mapHeight: number;
+    private col: number;
+    private row: number;
+    private border: number = 50
+
+
+    public initTiles(mapWidth: number, mapHeight: number, ): void {
+        let self = this;
+        self.container = GameSceneManager.Instance.getLayer(E_SceneLayerType.BackGround);
+        self.mapWidth = mapWidth;
+        self.mapHeight = mapHeight;
+        self.col = Math.ceil(mapWidth / GameDefine.MAP_TILE_WIDTH);
+        self.row = Math.ceil(mapHeight/ GameDefine.MAP_TILE_HEIGHT);
+    }
+
+
     /**
      * 初始化地图显示对象
      * 根据屏幕，初始化固定块数的地图

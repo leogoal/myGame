@@ -62,15 +62,21 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         self.layers = layers;
     }
 
-    private initMapTiles(): void {
+    private initMapData(): void {
 
     }
 
     private initScene(mapId: number): void {
         let self = this;
+        const mapConfig: MapConfig = cm.map[mapId];
+        if(mapConfig) {
+            self.mapConfig = mapConfig;
+            self.mapTiles.initTiles(mapConfig.width, mapConfig.height);
+            self.initMapData();
+        }
 
-        self.mapConfig = cm.map[mapId];
-        self.initMapTiles();
+
+        
     }
 
     public changeScene(mapId: number): void {
