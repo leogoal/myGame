@@ -1,0 +1,3 @@
+class ARPGInstanceBase extends InstanceBase {
+    
+}

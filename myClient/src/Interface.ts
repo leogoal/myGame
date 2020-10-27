@@ -28,6 +28,10 @@ interface I_Subject {
     sendNotif(cmd: number, data?: number);
 }
 
+interface I_Instance {
+    init(): void;
+    dispose(): void;
+}
 
 interface I_LimitedPoolItem {
     disposePermanent(): void;

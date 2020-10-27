@@ -13,6 +13,6 @@ class SingleARPGGame {
         const mapId: number = 100;
         gd.map.prepareEnterMap(mapId);
 
-        GameSceneManager.Instance.changeMap(gd.map.prepareMapId);
+        GameSceneManager.Instance.changeScene(gd.map.prepareMapId);
     }
 }

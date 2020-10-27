@@ -12,4 +12,8 @@ class EntityManager implements IUpdateable, IUpdateLogicable {
     public updateLogic(gameTime: GameTime): void {
 
     }
+
+    public destoryAllEntiy(): void {
+        
+    }
 }
