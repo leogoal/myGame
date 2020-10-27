@@ -68,6 +68,7 @@ class ConfigManager {
         console.log(`${url} ok`);
         loadingView && loadingView.showPregress(self.loadedCount, self.TOTALLNUM);
 
+        RES.destroyRes(url);
         const jsonfile = data;
         for (let fieldName in jsonfile) {
             self[fieldName] = jsonfile[fieldName];
