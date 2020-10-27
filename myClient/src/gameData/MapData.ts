@@ -47,8 +47,12 @@ class MapData {
 
 	}
 
-    public readData(bytes: egret.ByteArray): void {
+    public readData(data): void {
         let self = this;
+
+        const bytes: egret.ByteArray = cm.mapDatas[data];
+        bytes.position = 0;
+
         self.clearData();
         bytes.endian = egret.Endian.LITTLE_ENDIAN;
         bytes.position = 0;

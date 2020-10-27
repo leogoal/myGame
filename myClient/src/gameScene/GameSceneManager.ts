@@ -62,9 +62,6 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         self.layers = layers;
     }
 
-    private initMapData(): void {
-
-    }
 
     private initScene(mapId: number): void {
         let self = this;
@@ -72,11 +69,13 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         if(mapConfig) {
             self.mapConfig = mapConfig;
             self.mapTiles.initTiles(mapConfig.width, mapConfig.height);
-            self.initMapData();
+
+            gd.map.readData(mapConfig.data);
+            MapLoader.Instance.setMap(mapConfig.id);
+
+            self.curInstance = new ARPGInstanceBase();
+            self.curInstance.init();
         }
-
-
-        
     }
 
     public changeScene(mapId: number): void {
