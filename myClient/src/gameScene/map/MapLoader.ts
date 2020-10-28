@@ -14,14 +14,14 @@ class MapLoader {
     public setMap(mapId: number): void {
         let self = this;
 
-        self.clearLoadQueue();
-        self.id = mapId;
-
         const mapConfig: MapConfig = cm.map[mapId];
+        self.id = mapId;
         self.resDir = `${mapConfig.img}`;
 
-        
+        self.clearLoadQueue();
+        CacheManager.Instance.mapCache.clear();
 
+    
     }
 
     public loadComplete(loaderInfo: MapLoaderInfo, data): void {
