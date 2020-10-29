@@ -85,7 +85,7 @@ class MapTileManager {
             self.viewRow += 2;
         }
         const viewRow: number = self.viewRow;
-        
+
         let rowIndex: number;
         let colIndex: number;
         let tilesRow: MapTile[];
@@ -153,7 +153,6 @@ class MapTileManager {
     public update(screenX: number, screenY: number): void {
         let self = this;
 
-        const border: number = self.border;
         const leftUpPoint: egret.Point = self.getRowColByPos(screenX, screenY);
         const movedX: number = leftUpPoint.x - self.lastX;
         const movedY: number = leftUpPoint.y - self.lastY;
@@ -219,7 +218,7 @@ class MapTileManager {
                             tileY = tile.y;
                             tileX = tile.x - viewCol;
                             tile.x = tileX;
-                            if (tileX >= 0 && tile.x < totalCol && tileY >= 0 && tileY < totalRow) {
+                            if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
                                 tile.index = totalCol * tileY + tileX + 1;
                                 tilesChanged.push(tile);
                             }
@@ -343,9 +342,9 @@ class MapTileManager {
         let self = this;
         const tilesInView = self.tilesInView;
 
-        for (let arr of tilesInView) {
-            if (arr && arr.length) {
-                for (let tile of arr) {
+        for (let tilesRow of tilesInView) {
+            if (tilesRow && tilesRow.length) {
+                for (let tile of tilesRow) {
                     tile.dispose();
                 }
             }
