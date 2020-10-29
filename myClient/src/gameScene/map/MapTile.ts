@@ -66,14 +66,40 @@ class MapTile {
                     MapLoader.Instance.load(index, self);
                 }
             }
+            self.changed = false;
+        }
+    }
+
+    public loadComplete(index: number, texture: egret.Texture): void {
+        let self = this;
+        if(self._index === index) {
+            if(texture) {
+                MapLoader.Instance.addTextureUse(index);
+                self.bitmap.texture = texture;
+            }
         }
     }
 
     private clearTexture(): void {
-
+        let self = this;
+        if(self.bitmap && self.bitmap.texture) {
+            self.bitmap.texture = null;
+            MapLoader.Instance.removeTextureUse(self._index);
+        }
     }
 
     public dispose(): void {
-        
+        let self = this;
+        if(self._index > 0) {
+            self.clearTexture()
+        }
+
+        if(self.bitmap) {
+            if(self.bitmap.parent) {
+                self.bitmap.parent.removeChild(self.bitmap);
+            }
+            self.bitmap.texture = null;
+            self.bitmap = null;
+        }
     }
 }
