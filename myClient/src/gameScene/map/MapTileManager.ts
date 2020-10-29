@@ -6,24 +6,19 @@ class MapTileManager {
         self.tileWidth = GameDefine.MAP_TILE_WIDTH;
         self.tileHeight = GameDefine.MAP_TILE_HEIGHT;
         self.border = 50;
-        self.viewCol = 0;
-        self.viewRow = 0;
-        self.tilesInView;
+        self.tilesInView = [];
     }
 
     private leftUpPoint: egret.Point;
     private container: SceneLayer;
-
     private tileWidth: number;
     private tileHeight: number;
     private tilesInView: Array<Array<MapTile>>;
     private mapWidth: number;
     private mapHeight: number;
-    private col: number;
-    private row: number;
+    private totalCol: number;
+    private totalRow: number;
     private border: number;
-    private viewWidth: number;
-    private viewHeight: number;
     private lastX: number;
     private lastY: number;
     private scrollX: number;
@@ -32,15 +27,13 @@ class MapTileManager {
     private viewRow: number;
 
 
-
     public initTiles(mapWidth: number, mapHeight: number, ): void {
         let self = this;
 
         self.mapWidth = mapWidth;
         self.mapHeight = mapHeight;
-        self.col = Math.ceil(mapWidth / self.tileWidth);
-        self.row = Math.ceil(mapHeight / self.tileHeight);
-        self.tilesInView = [];
+        self.totalCol = Math.ceil(mapWidth / self.tileWidth);
+        self.totalRow = Math.ceil(mapHeight / self.tileHeight);
     }
 
 
@@ -65,8 +58,8 @@ class MapTileManager {
             return;
         }
 
-        const viewW: number = self.viewWidth = mStage.stageWidth;
-        const viewH: number = self.viewHeight = mStage.stageHeight;
+        const viewW: number = mStage.stageWidth;
+        const viewH: number = MtwGame.Instance.getStageHeight();
         const leftUpPoint: egret.Point = self.getRowColByPos(screenX, screenY);
         self.lastX = leftUpPoint.x;
         self.lastY = leftUpPoint.y;
@@ -91,8 +84,8 @@ class MapTileManager {
         } else {
             self.viewRow += 2;
         }
-
         const viewRow: number = self.viewRow;
+        
         let rowIndex: number;
         let colIndex: number;
         let tilesRow: MapTile[];
@@ -127,8 +120,8 @@ class MapTileManager {
             }
         }
 
-        const totalCol: number = self.col;
-        const totalRow: number = self.row;
+        const totalCol: number = self.totalCol;
+        const totalRow: number = self.totalRow;
         const startX: number = leftUpPoint.x;
         const startY: number = leftUpPoint.y;
 
@@ -149,7 +142,7 @@ class MapTileManager {
                     tile.index = totalCol * tileY + tileX + 1;
                 } else {
                     tile.index = 0;
-                    console.warn('地图切片xy有异常');
+                    console.error('地图切片xy有异常');
                     console.log(`tileX: ${tileX} tileY: ${tileY} totalCol: ${totalCol} totalRow: ${totalRow}`);
                 }
                 tile.loadMapTile()
@@ -176,8 +169,8 @@ class MapTileManager {
 
             const viewRow: number = self.viewRow;
             const viewCol: number = self.viewCol;
-            const totalCol: number = self.col;
-            const totalRow: number = self.row;
+            const totalCol: number = self.totalCol;
+            const totalRow: number = self.totalRow;
             let rowIndex: number;
             let colIndex: number;
             let srow: number;
@@ -305,8 +298,8 @@ class MapTileManager {
         const startY: number = self.leftUpPoint.y;
         const viewRow: number = self.viewRow;
         const viewCol: number = self.viewCol;
-        const totalCol: number = self.col;
-        const totalRow: number = self.row;
+        const totalCol: number = self.totalCol;
+        const totalRow: number = self.totalRow;
         let rowIndex: number;
         let colIndex: number;
         let tile: MapTile;
@@ -331,7 +324,7 @@ class MapTileManager {
                     tile.index = totalCol * tileY + tileX + 1;
                 } else {
                     tile.index = 0;
-                    console.warn('地图切片xy有异常');
+                    console.error('地图切片xy有异常');
                     console.log(`tileX: ${tileX} tileY: ${tileY} totalCol: ${totalCol} totalRow: ${totalRow}`);
                 }
                 tile.loadMapTile();
