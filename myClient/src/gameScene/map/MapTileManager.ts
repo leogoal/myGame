@@ -68,8 +68,8 @@ class MapTileManager {
         const viewW: number = self.viewWidth = mStage.stageWidth;
         const viewH: number = self.viewHeight = mStage.stageHeight;
         const leftUpPoint: egret.Point = self.getRowColByPos(screenX, screenY);
-        self.lastX = self.leftUpPoint.x;
-        self.lastY = self.leftUpPoint.y;
+        self.lastX = leftUpPoint.x;
+        self.lastY = leftUpPoint.y;
         self.scrollX = 0;
         self.scrollY = 0;
 
@@ -91,8 +91,8 @@ class MapTileManager {
         } else {
             self.viewRow += 2;
         }
-        const viewRow: number = self.viewRow;
 
+        const viewRow: number = self.viewRow;
         let rowIndex: number;
         let colIndex: number;
         let tilesRow: MapTile[];
@@ -129,12 +129,14 @@ class MapTileManager {
 
         const totalCol: number = self.col;
         const totalRow: number = self.row;
+        const startX: number = leftUpPoint.x;
+        const startY: number = leftUpPoint.y;
 
         for (rowIndex = 0; rowIndex < viewRow; rowIndex++) {
             for (colIndex = 0; colIndex < viewCol; colIndex++) {
                 tile = tiles[rowIndex][colIndex];
-                const tileX: number = colIndex + leftUpPoint.x;
-                const tileY: number = rowIndex + leftUpPoint.y;
+                const tileX: number = colIndex + startX;
+                const tileY: number = rowIndex + startY;
                 if (tile) {
                     tile.x = tileX;
                     tile.y = tileY;
@@ -150,9 +152,192 @@ class MapTileManager {
                     console.warn('地图切片xy有异常');
                     console.log(`tileX: ${tileX} tileY: ${tileY} totalCol: ${totalCol} totalRow: ${totalRow}`);
                 }
-                tile.l
+                tile.loadMapTile()
             }
         }
+    }
+
+    public update(screenX: number, screenY: number): void {
+        let self = this;
+
+        const border: number = self.border;
+        const leftUpPoint: egret.Point = self.getRowColByPos(screenX, screenY);
+        const movedX: number = leftUpPoint.x - self.lastX;
+        const movedY: number = leftUpPoint.y - self.lastY;
+        self.lastX = leftUpPoint.x;
+        self.lastY = leftUpPoint.y;
+        const mx: number = Math.abs(movedX);
+        const my: number = Math.abs(movedY);
+
+        if (mx > 2 || my > 2) {
+            self.updateAll()
+        } else if (mx > 0 || my > 0) {
+            const tiles: Array<Array<MapTile>> = self.tilesInView;
+
+            const viewRow: number = self.viewRow;
+            const viewCol: number = self.viewCol;
+            const totalCol: number = self.col;
+            const totalRow: number = self.row;
+            let rowIndex: number;
+            let colIndex: number;
+            let srow: number;
+            let scol: number;
+            let tile: MapTile;
+            let tileX: number;
+            let tileY: number;
+            const tilesChanged: MapTile[] = [];
+
+            if (movedX > 0) {
+                //向右移动
+                for (colIndex = 0; colIndex < mx; colIndex++) {
+                    scol = (self.scrollX + colIndex) % viewCol;
+                    if (scol < 0) {
+                        scol += viewCol;
+                    }
+                    for (rowIndex = 0; rowIndex < viewRow; rowIndex++) {
+                        srow = (self.scrollY + rowIndex) % viewRow;
+                        if (srow < 0) {
+                            srow += viewRow;
+                        }
+                        tile = tiles[srow][scol];
+                        tileY = tile.y;
+                        tileX = tile.x + viewCol;
+                        tile.x = tileX;
+                        if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
+                            tile.index = totalCol * tileY + tileX + 1;
+                            tilesChanged.push(tile);
+                        }
+                    }
+                }
+            } else {
+                //向左移动
+                for (colIndex = 0; colIndex < mx; colIndex++) {
+                    scol = (self.scrollX + (viewCol - 1 - colIndex)) % viewCol;
+                    if (scol < 0) {
+                        scol += viewCol;
+                    }
+                    for (rowIndex = 0; rowIndex < viewRow; rowIndex++) {
+                        srow = (self.scrollY + rowIndex) % viewRow;
+                        if (srow < 0) {
+                            srow += viewRow;
+                        }
+                        tile = tiles[srow][scol];
+                        if (tile) {
+                            tileY = tile.y;
+                            tileX = tile.x - viewCol;
+                            tile.x = tileX;
+                            if (tileX >= 0 && tile.x < totalCol && tileY >= 0 && tileY < totalRow) {
+                                tile.index = totalCol * tileY + tileX + 1;
+                                tilesChanged.push(tile);
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            if (movedY > 0) {
+                //向下移动
+                for (rowIndex = 0; rowIndex < my; rowIndex++) {
+                    srow = (self.scrollY + rowIndex) % viewRow;
+                    if (srow < 0) {
+                        srow += viewRow;
+                    }
+                    for (colIndex = 0; colIndex < viewCol; colIndex++) {
+                        scol = (self.scrollX + colIndex) % viewCol;
+                        if (scol < 0) {
+                            scol += viewCol;
+                        }
+                        tile = tiles[srow][scol];
+                        if (tile) {
+                            tileX = tile.x;
+                            tileY = tile.y + viewRow;
+                            tile.y = tileY;
+                            if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
+                                tile.index = totalCol * tileY + tileX + 1;
+                                tilesChanged.push(tile);
+                            }
+                        }
+                    }
+                }
+            } else {
+                //向上移动
+                for (rowIndex = 0; rowIndex < my; rowIndex++) {
+                    srow = (self.scrollY + (viewRow - 1 - rowIndex)) % viewRow;
+                    if (srow < 0) {
+                        srow += viewRow;
+                    }
+                    for (colIndex = 0; colIndex < viewCol; colIndex++) {
+                        scol = (self.scrollX + colIndex) % viewCol;
+                        if (scol < 0) {
+                            scol += viewCol;
+                        }
+                        tile = tiles[srow][scol];
+                        if (tile) {
+                            tileX = tile.x;
+                            tileY = tile.y - viewRow;
+                            tile.y = tileY;
+                            if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
+                                tile.index = totalCol * tileY + tileX + 1;
+                                tilesChanged.push(tile);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (tile of tilesChanged) {
+                tile.loadMapTile();
+            }
+
+            self.scrollX += movedX % viewCol;
+            self.scrollY += movedY % viewRow;
+        }
+    }
+
+    private updateAll(): void {
+        let self = this;
+
+        self.scrollX = 0;
+        self.scrollY = 0;
+        const tiles: Array<Array<MapTile>> = self.tilesInView;
+        const startX: number = self.leftUpPoint.x;
+        const startY: number = self.leftUpPoint.y;
+        const viewRow: number = self.viewRow;
+        const viewCol: number = self.viewCol;
+        const totalCol: number = self.col;
+        const totalRow: number = self.row;
+        let rowIndex: number;
+        let colIndex: number;
+        let tile: MapTile;
+        let tileX: number;
+        let tileY: number;
+
+        for (rowIndex = 0; rowIndex < viewRow; rowIndex++) {
+            for (colIndex = 0; colIndex < viewCol; colIndex++) {
+                tile = tiles[rowIndex][colIndex];
+                tileX = startX + colIndex;
+                tileY = startY + rowIndex;
+
+                if (tile) {
+                    tile.x = tileX;
+                    tile.y = tileY;
+                } else {
+                    tile = self.addTile(tileX, tileY);
+                    tiles[rowIndex][colIndex] = tile;
+                }
+
+                if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
+                    tile.index = totalCol * tileY + tileX + 1;
+                } else {
+                    tile.index = 0;
+                    console.warn('地图切片xy有异常');
+                    console.log(`tileX: ${tileX} tileY: ${tileY} totalCol: ${totalCol} totalRow: ${totalRow}`);
+                }
+                tile.loadMapTile();
+            }
+        }
+
     }
 
     private addTile(x: number, y: number): MapTile {

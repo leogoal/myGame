@@ -63,7 +63,7 @@ class MapTile {
                     MapLoader.Instance.addTextureUse(index);
                     self.bitmap.texture = cacheTexture;
                 } else {
-                    
+                    MapLoader.Instance.load(index, self);
                 }
             }
         }
