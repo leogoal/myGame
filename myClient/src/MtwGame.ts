@@ -46,7 +46,9 @@ class MtwGame {
     public updateTime(gameTime: GameTime): void {
         const renders = this.renders;
         for (let render of renders) {
-            render.update(gameTime);
+            if (render.enabled) {
+                render.update(gameTime);
+            }
         }
     }
 
@@ -59,7 +61,9 @@ class MtwGame {
         if (self.updateLogicCount > 3) {
             const logicRenders = self.logicRenders;
             for (let logicRender of logicRenders) {
-                logicRender.updateLogic(gameTime);
+                if(logicRender.enabled) {
+                    logicRender.updateLogic(gameTime);
+                }    
             }
             self.updateLogicCount = 0;
         }

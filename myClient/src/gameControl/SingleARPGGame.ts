@@ -10,9 +10,10 @@ class SingleARPGGame {
 
     private enterMap(): void {
 
-        const mapId: number = 100;
+        const mapId: number = 154;
         gd.map.prepareEnterMap(mapId);
 
         GameSceneManager.Instance.changeScene(gd.map.prepareMapId);
+        GameSceneManager.Instance.enter();
     }
 }

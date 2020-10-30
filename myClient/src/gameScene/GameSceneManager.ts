@@ -13,8 +13,8 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     private mapConfig: MapConfig;
     private stageWIsGreaterMapW: boolean;
     private stageHIsGreaterMapH: boolean;
-    private _screenX: number;
-    private _screenY: number;
+    private screenX: number;
+    private screenY: number;
 
 
     public getLayer(layer: E_SceneLayerType): SceneLayer {
@@ -90,27 +90,78 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     public enter(): void {
         let self = this;
         self.enabled = true;
+
+        self.checkStageWAndMapW();
+        self.renderMapByRole();
+        self.mapTiles.initSize(self.screenX, self.screenY);
     }
 
     public resize(): void {
+        let self = this;
+        self.checkStageWAndMapW();
+        if (self.enabled) {
+            self.renderMapByRole();
+            self.mapTiles.initSize(self.screenX, self.screenY);
+        }
+    }
+
+    private checkStageWAndMapW():void {
         let self = this;
         const mapConfig: MapConfig = self.mapConfig;
         if (mapConfig) {
             self.stageWIsGreaterMapW = mStage.stageWidth > mapConfig.width;
             self.stageHIsGreaterMapH = MtwGame.Instance.getStageHeight() > mapConfig.height;
         }
+    }
 
-        if (self.enabled && self.mapTiles) {
-            self.mapTiles.initSize(self._screenX, self._screenY);
+    private renderMapByRole(): void {
+        let self = this;
+        const firstPlayer: Player = emIns.firstPlayer;
+        if(firstPlayer) {
+            const stageW: number = mStage.stageWidth;
+            const stageH: number = mStage.stageHeight;
+            const mapW: number = self.mapConfig.width;
+            const mapH: number = self.mapConfig.height;
+            let screenX: number;
+            let screenY: number;
+            if(self.stageWIsGreaterMapW) {
+                screenX = (stageW - mapW) * 0.5; 
+            } else {
+                screenX = stageW * 0.5 - firstPlayer.x;
+                if(screenX > 0) {
+                    screenX = 0;
+                } else if(screenX < mapW - stageW) {
+                    screenX = mapW - stageW;
+                }
+            }
+
+            if(self.stageHIsGreaterMapH) {
+                screenY = (stageH - mapH) * 0.5;
+            } else {
+                screenY = stageH * 0.5 - firstPlayer.y;
+                if(screenY > 0) {
+                    screenY = 0;
+                } else if(screenY < mapH - stageH) {
+                    screenY = mapH - stageH;
+                }
+            }
+
+            self.screenX = Math.floor(screenX);
+            self.screenY = Math.floor(screenY);
+
+            self.root.x = screenX;
+            self.root.y = screenY;
         }
     }
 
     public update(): void {
-
+        let self = this;
+        self.renderMapByRole();
     }
 
     public updateLogic(): void {
-
+        let self = this;
+        self.mapTiles.update(self.screenX, self.screenY);
     }
 
     private destory(): void {
