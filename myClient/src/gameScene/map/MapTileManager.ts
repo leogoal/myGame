@@ -139,7 +139,7 @@ class MapTileManager {
                 }
 
                 if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                    tile.index = totalCol * tileY + tileX + 1;
+                    tile.index = self.getIndexByXY(tileX, tileY);
                 } else {
                     tile.index = 0;
                     console.error('地图切片xy有异常');
@@ -196,7 +196,7 @@ class MapTileManager {
                         tileX = tile.x + viewCol;
                         tile.x = tileX;
                         if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                            tile.index = totalCol * tileY + tileX + 1;
+                            tile.index = self.getIndexByXY(tileX, tileY);
                             tilesChanged.push(tile);
                         }
                     }
@@ -219,7 +219,7 @@ class MapTileManager {
                             tileX = tile.x - viewCol;
                             tile.x = tileX;
                             if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                                tile.index = totalCol * tileY + tileX + 1;
+                                tile.index = self.getIndexByXY(tileX, tileY);
                                 tilesChanged.push(tile);
                             }
                         }
@@ -246,7 +246,7 @@ class MapTileManager {
                             tileY = tile.y + viewRow;
                             tile.y = tileY;
                             if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                                tile.index = totalCol * tileY + tileX + 1;
+                                tile.index = self.getIndexByXY(tileX, tileY);
                                 tilesChanged.push(tile);
                             }
                         }
@@ -270,7 +270,7 @@ class MapTileManager {
                             tileY = tile.y - viewRow;
                             tile.y = tileY;
                             if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                                tile.index = totalCol * tileY + tileX + 1;
+                                tile.index = self.getIndexByXY(tileX, tileY);
                                 tilesChanged.push(tile);
                             }
                         }
@@ -320,7 +320,7 @@ class MapTileManager {
                 }
 
                 if (tileX >= 0 && tileX < totalCol && tileY >= 0 && tileY < totalRow) {
-                    tile.index = totalCol * tileY + tileX + 1;
+                    tile.index = self.getIndexByXY(tileX, tileY);
                 } else {
                     tile.index = 0;
                     console.error('地图切片xy有异常');
@@ -330,6 +330,10 @@ class MapTileManager {
             }
         }
 
+    }
+
+    private getIndexByXY(tileX: number, tileY: number): number {
+        return this.totalCol * tileY + tileX + 1;
     }
 
     private addTile(x: number, y: number): MapTile {
