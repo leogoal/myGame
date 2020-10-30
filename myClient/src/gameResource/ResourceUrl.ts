@@ -1,11 +1,9 @@
 class ResUrl {
 	public constructor() {
 	}
-	public static readonly MapBackGround: string = "map/";
+	public static readonly Map: string = "img/map/";
 	public static Model: string = "model/";
 	public static Config: string = "config/"
-
-	public static ImageServer: string = "http://192.168.5.126:86/resource/";
 
 	public static readonly DatExt: string = ".dat";
 	public static readonly AudioExt: string = ".wav";
@@ -19,26 +17,26 @@ class ResUrl {
 
 	public static url(fileName: string, resType: ResourceType = 0, childDic: any = undefined, ext: string = ResUrl.PNGExt): string {
 		const resVersion: string = `?v=${my_gameVars.versionNumber}`;
-		let dir = "";
+		let path = "";
 		let url: string;
 
 
 		switch (resType) {
 			case ResourceType.Model:
-				dir = ResUrl.Model + childDic;
+				path = ResUrl.Model + childDic;
 				break;
 			case ResourceType.Map:
-				dir = ResUrl.MapBackGround + childDic;
-				return ResUrl.ImageServer + dir + fileName;
+				path = ResUrl.Map + childDic + fileName + ResUrl.JPGExt;
+				break;
 			case ResourceType.Config:
-				dir = ResUrl.Config + fileName + ResUrl.JsonExt;
+				path = ResUrl.Config + fileName + ResUrl.JsonExt;
 				break;
 			case ResourceType.MapData:
-				dir = ResUrl.Config + fileName + ResUrl.DatExt;
+				path = ResUrl.Config + fileName + ResUrl.DatExt;
 				break;
 		}
 
-        url = `${my_gameVars.APILocaiton}${dir}${resVersion}`;
+        url = `${my_gameVars.APILocaiton}${path}${resVersion}`;
 		return url;
 	}
 

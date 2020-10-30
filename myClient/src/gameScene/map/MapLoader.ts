@@ -139,7 +139,7 @@ class MapLoaderInfo {
     public doLoad(resDir: string): void {
         let self = this;
 
-        const url: string = ResUrl.url(`${self.index}.jpg`, ResourceType.Map, resDir);
+        const url: string = ResUrl.url(`${self.index}`, ResourceType.Map, resDir);
         RES.getResByUrl(url, self.loadImgCompFunc, self, RES.NCImg);
     }
 
