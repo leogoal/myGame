@@ -1,15 +1,20 @@
 {
 	"groups": [
 		{
-			"keys": "egret_icon_png",
+			"keys": "egret_icon_png,mosaic_jpg",
 			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"name": "egret_icon_png",
+			"url": "assets/egret_icon.png",
 			"type": "image",
-			"url": "assets/egret_icon.png"
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "assets/mosaic.jpg",
+			"type": "image",
+			"name": "mosaic_jpg"
 		}
 	]
 }

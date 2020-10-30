@@ -67,10 +67,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     private initMosaic(): void {
         let self = this;
         self.imgMosaic = new egret.Bitmap();
-        const url: string = ResUrl.url(`mosaic`, ResourceType.MiniMap);
-        RES.getResByUrl(url, (data) => {
-            self.imgMosaic.texture = data;
-        }, self, RES.NCImg);
+        self.imgMosaic.texture = RES.getRes("mosaic_jpg")
     }
 
     private addMosaic(): void {
