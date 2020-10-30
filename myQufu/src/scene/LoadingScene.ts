@@ -21,7 +21,7 @@ namespace qufu {
                 const manifestJson: any = await self.getMainManifestJson("manifest.json");
                 self.loadArr = manifestJson.game;
             } else {
-                self.loadArr = [`main${my_gameVars.versionName}.min.js`];
+                self.loadArr = [`main${my_gameVars.versionNumber}.min.js`];
             }
             self.total = self.loadArr.length;
             self.loadNext();
@@ -49,7 +49,7 @@ namespace qufu {
                 script.async = false;
 
                 const loadingItem = self.loadArr[self.loaded];
-                if (loadingItem == `main${my_gameVars.versionName}.min.js`) {
+                if (loadingItem == `main${my_gameVars.versionNumber}.min.js`) {
                     script.src = loadingItem;
                 } else {
                     script.src = `${loadingItem}?v=${Math.random()}`;

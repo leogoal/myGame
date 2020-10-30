@@ -18,9 +18,10 @@ class ResUrl {
 	public static NoCache: boolean = false;
 
 	public static url(fileName: string, resType: ResourceType = 0, childDic: any = undefined, ext: string = ResUrl.PNGExt): string {
-
+		const resVersion: string = `?v=${my_gameVars.versionNumber}`;
 		let dir = "";
 		let url: string;
+
 
 		switch (resType) {
 			case ResourceType.Model:
@@ -37,7 +38,7 @@ class ResUrl {
 				break;
 		}
 
-        url = my_gameVars.APILocaiton + dir + my_gameVars.versionTimeS;
+        url = `${my_gameVars.APILocaiton}${dir}${resVersion}`;
 		return url;
 	}
 

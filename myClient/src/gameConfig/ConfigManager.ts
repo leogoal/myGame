@@ -23,7 +23,7 @@ class ConfigManager {
             loadingView.showPregress(1, 10);
         }
          
-        let url: string = ResUrl.url(`map${my_gameVars.versionName}`, ResourceType.MapData);
+        let url: string = ResUrl.url(`map${my_gameVars.versionNumber}`, ResourceType.MapData);
         RES.getResByUrl(url, (res, url) => {
             //zlib解压缩
             const inflate = new Zlib.Inflate(new Uint8Array(res));
@@ -56,7 +56,7 @@ class ConfigManager {
         let url: string;
 
         for (let curLoad: number = 0; curLoad < TOTALLNUM; curLoad++) {
-            url = ResUrl.url(`${curLoad}config${my_gameVars.versionName}`, ResourceType.Config);
+            url = ResUrl.url(`${curLoad}config${my_gameVars.versionNumber}`, ResourceType.Config);
             console.log('loading: ' + url);
             RES.getResByUrl(url, self.onLoadConfigData, self, RES.ResourceItem.TYPE_JSON);
         }
