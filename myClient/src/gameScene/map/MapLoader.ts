@@ -31,17 +31,17 @@ class MapLoader {
             if (curLoadingInfo) {
                 self.addTextureCache(index, data);
                 const mapTile: MapTile = curLoadingInfo.mapTile;
-                if(mapTile) {
+                if (mapTile) {
                     mapTile.loadComplete(index, data);
                 }
                 delete self.loading[index];
             } else {
                 //可能是切换了地图又回到同一个地图，如果缓存里没有就先存到缓存，但是引用计数不增加
-                if(!self.getTextureFromCache(index)) {
+                if (!self.getTextureFromCache(index)) {
                     self.addTextureCache(index, data);
                 }
             }
-            
+
         } else {
             data && data.dispose && (data.dispose());
         }
@@ -49,6 +49,7 @@ class MapLoader {
         loaderInfo.dispose();
         self.loadingCount--;
         self.loadNext();
+        self.checkIsAllOk();
     }
 
     public load(index: number, mapTile: MapTile): void {
@@ -93,9 +94,12 @@ class MapLoader {
                 self.loadingCount++;
                 loaderInfo.doLoad(self.resDir);
             }
-        } else {
-            self.isAllOk = true;
         }
+    }
+
+    private checkIsAllOk(): void {
+        let self = this;
+        self.isAllOk = self.loadingCount === 0 && self.queue.length === 0;
     }
 
     private addTextureCache(index: number, texture: egret.Texture): void {
