@@ -29,7 +29,7 @@ class CacheCollection {
         item.size = cacheSize;
         item.reference = reference;
         items[key] = item;
-        this.keys.push(key);
+        self.keys.push(key);
     }
 
     public addReference(key: number, type: number = -1): boolean {

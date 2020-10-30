@@ -1,6 +1,4 @@
 const enum E_SceneLayerType {
-    Start,
-
 	BackGround,
 	StaticItem,
 	Shadow,

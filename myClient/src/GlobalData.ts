@@ -11,9 +11,9 @@ declare let gd: DataManager;
 class GameDefine {
     public static BottomBorder: number = -100;
 
-    public static readonly MAP_TILE_HEIGHT: number = 256;
+    
     public static readonly MAP_TILE_WIDTH: number = 512;
-
+	public static readonly MAP_TILE_HEIGHT: number = 256;
     
 	/**每格子的宽度 */
 	public static readonly MAP_GRID_WIDTH: number = 48;

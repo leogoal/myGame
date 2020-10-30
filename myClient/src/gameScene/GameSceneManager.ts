@@ -3,8 +3,8 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     public enabled: boolean = false;
 
     public root: egret.Sprite;
-    private layers: {[type: number]: SceneLayer};
-    
+    private layers: { [type: number]: SceneLayer };
+
 
     public curInstance: ARPGInstanceBase;
     private mapTiles: MapTileManager;
@@ -43,7 +43,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         const layers = {};
 
         let layer: SceneLayer;
-        for (let type: number = E_SceneLayerType.Start; type < E_SceneLayerType.End; type++) {
+        for (let type: number = E_SceneLayerType.BackGround; type < E_SceneLayerType.End; type++) {
             if (type === E_SceneLayerType.Role) {
                 layer = new RoleLayer();
             } else if (type == E_SceneLayerType.Info) {
@@ -52,6 +52,10 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
                 layer = new InfoLayer();
             } else {
                 layer = new SceneLayer();
+            }
+
+            if(type === E_SceneLayerType.BackGround) {
+                layer.name = "map";
             }
             layer.enabled = false;
 
@@ -66,7 +70,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     private initScene(mapId: number): void {
         let self = this;
         const mapConfig: MapConfig = cm.map[mapId];
-        if(mapConfig) {
+        if (mapConfig) {
             self.mapConfig = mapConfig;
             self.mapTiles.initTiles(mapConfig.width, mapConfig.height);
 
@@ -105,7 +109,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         }
     }
 
-    private checkStageWAndMapW():void {
+    private checkStageWAndMapW(): void {
         let self = this;
         const mapConfig: MapConfig = self.mapConfig;
         if (mapConfig) {
@@ -117,40 +121,40 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     private renderMapByRole(): void {
         let self = this;
         const firstPlayer: Player = emIns.firstPlayer;
-        if(firstPlayer) {
+        if (firstPlayer) {
             const stageW: number = mStage.stageWidth;
             const stageH: number = mStage.stageHeight;
             const mapW: number = self.mapConfig.width;
             const mapH: number = self.mapConfig.height;
-            let screenX: number;
-            let screenY: number;
-            if(self.stageWIsGreaterMapW) {
-                screenX = (stageW - mapW) * 0.5; 
+            let _screenX: number;
+            let _screenY: number;
+            if (self.stageWIsGreaterMapW) {
+                _screenX = (stageW - mapW) * 0.5;
             } else {
-                screenX = stageW * 0.5 - firstPlayer.x;
-                if(screenX > 0) {
-                    screenX = 0;
-                } else if(screenX < mapW - stageW) {
-                    screenX = mapW - stageW;
+                _screenX = stageW * 0.5 - firstPlayer.x;
+                if (_screenX > 0) {
+                    _screenX = 0;
+                } else if (_screenX < stageW - mapW) {
+                    _screenX = stageW - mapW;
                 }
             }
 
-            if(self.stageHIsGreaterMapH) {
-                screenY = (stageH - mapH) * 0.5;
+            if (self.stageHIsGreaterMapH) {
+                _screenY = (stageH - mapH) * 0.5;
             } else {
-                screenY = stageH * 0.5 - firstPlayer.y;
-                if(screenY > 0) {
-                    screenY = 0;
-                } else if(screenY < mapH - stageH) {
-                    screenY = mapH - stageH;
+                _screenY = stageH * 0.5 - firstPlayer.y;
+                if (_screenY > 0) {
+                    _screenY = 0;
+                } else if (_screenY < stageH - mapH) {
+                    _screenY = stageH - mapH;
                 }
             }
 
-            self.screenX = Math.floor(screenX);
-            self.screenY = Math.floor(screenY);
+            self.screenX = Math.floor(_screenX);
+            self.screenY = Math.floor(_screenY);
 
-            self.root.x = screenX;
-            self.root.y = screenY;
+            self.root.x = _screenX;
+            self.root.y = _screenY;
         }
     }
 

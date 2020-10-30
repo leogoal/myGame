@@ -11,8 +11,8 @@ class MapTile {
     constructor(x: number, y: number) {
         let self = this;
         self.bitmap = new egret.Bitmap();
-        self._w = GameDefine.MAP_GRID_WIDTH;
-        self._h = GameDefine.MAP_GRID_HEIGHT;
+        self._w = GameDefine.MAP_TILE_WIDTH;
+        self._h = GameDefine.MAP_TILE_HEIGHT;
         self.x = x;
         self.y = y;
     }

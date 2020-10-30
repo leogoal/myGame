@@ -1,4 +1,4 @@
 class Player {
-    public x: number = 1000;
-    public y: number = 1000;
+    public x: number = 2000;
+    public y: number = 2000;
 }
