@@ -6,6 +6,7 @@ class SingleARPGGame {
 
     public startARPGGame(): void {
         let self = this;
+        self.enterMap();
     }
 
     private enterMap(): void {

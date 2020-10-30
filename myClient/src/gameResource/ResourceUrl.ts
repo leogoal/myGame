@@ -5,6 +5,7 @@ class ResUrl {
 	public static Model: string = "model/";
 	public static Config: string = "config/"
 
+	public static ImageServer: string = "http://192.168.5.126:86/resource/";
 
 	public static readonly DatExt: string = ".dat";
 	public static readonly AudioExt: string = ".wav";
@@ -27,7 +28,7 @@ class ResUrl {
 				break;
 			case ResourceType.Map:
 				dir = ResUrl.MapBackGround + childDic;
-				break;
+				return ResUrl.ImageServer + dir + fileName;
 			case ResourceType.Config:
 				dir = ResUrl.Config + fileName + ResUrl.JsonExt;
 				break;

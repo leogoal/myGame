@@ -16,7 +16,7 @@ class MapLoader {
 
         const mapConfig: MapConfig = cm.map[mapId];
         self.id = mapId;
-        self.resDir = `${mapConfig.img}`;
+        self.resDir = `${mapConfig.img}/`;
 
         self.clearLoadQueue();
         CacheManager.Instance.mapCache.clear();

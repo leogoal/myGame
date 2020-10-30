@@ -108,8 +108,8 @@ class MapTileManager {
             tilesRow = tiles[rowIndex];
             if (!tilesRow) {
                 tilesRow = [];
-            }
-            if (tilesRow.length > viewCol) {
+                tiles[rowIndex] = tilesRow;
+            } else if (tilesRow.length > viewCol) {
                 for (colIndex = viewCol; colIndex < tilesRow.length; colIndex++) {
                     tile = tilesRow[colIndex];
                     if (tile) {
