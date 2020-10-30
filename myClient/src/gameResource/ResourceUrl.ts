@@ -2,6 +2,7 @@ class ResUrl {
 	public constructor() {
 	}
 	public static readonly Map: string = "img/map/";
+	public static readonly MiniMap: string = "img/miniMap/"
 	public static Model: string = "model/";
 	public static Config: string = "config/"
 
@@ -15,7 +16,7 @@ class ResUrl {
 
 	public static NoCache: boolean = false;
 
-	public static url(fileName: string, resType: ResourceType = 0, childDic: any = undefined, ext: string = ResUrl.PNGExt): string {
+	public static url(fileName: string, resType: ResourceType = 0, childDic: string = "", ext: string = ResUrl.PNGExt): string {
 		const resVersion: string = `?v=${my_gameVars.versionNumber}`;
 		let path = "";
 		let url: string;
@@ -34,6 +35,9 @@ class ResUrl {
 			case ResourceType.MapData:
 				path = ResUrl.Config + fileName + ResUrl.DatExt;
 				break;
+			case ResourceType.MiniMap:
+				path = ResUrl.MiniMap + fileName + ResUrl.JPGExt;
+				break;
 		}
 
         url = `${my_gameVars.APILocaiton}${path}${resVersion}`;
@@ -51,5 +55,6 @@ const enum ResourceType {
 	Config,
 	Model,
 	Map,
+	MiniMap,
 	Audio,
 }

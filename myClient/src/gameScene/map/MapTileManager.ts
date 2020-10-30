@@ -148,6 +148,8 @@ class MapTileManager {
                 tile.loadMapTile()
             }
         }
+
+        GameSceneManager.Instance.updateMosaic();
     }
 
     public update(screenX: number, screenY: number): void {
@@ -285,6 +287,8 @@ class MapTileManager {
             self.scrollX += movedX % viewCol;
             self.scrollY += movedY % viewRow;
         }
+
+        GameSceneManager.Instance.updateMosaic();
     }
 
     private updateAll(): void {

@@ -5,7 +5,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     public root: egret.Sprite;
     private layers: { [type: number]: SceneLayer };
 
-
+    private imgMosaic: egret.Bitmap;
     public curInstance: ARPGInstanceBase;
     private mapTiles: MapTileManager;
 
@@ -28,20 +28,18 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
             root.name = "root";
             MtwGame.Instance.offsetView.addChildAt(root, 0);
             self.root = root;
-
             self.initLayers();
+            self.initMosaic();
             self.mapTiles = new MapTileManager();
-
+            
             self.init = true;
         }
     }
 
     private initLayers(): void {
         let self = this;
-
         const root: egret.Sprite = self.root;
         const layers = {};
-
         let layer: SceneLayer;
         for (let type: number = E_SceneLayerType.BackGround; type < E_SceneLayerType.End; type++) {
             if (type === E_SceneLayerType.Role) {
@@ -54,7 +52,7 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
                 layer = new SceneLayer();
             }
 
-            if(type === E_SceneLayerType.BackGround) {
+            if (type === E_SceneLayerType.BackGround) {
                 layer.name = "map";
             }
             layer.enabled = false;
@@ -66,6 +64,34 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
         self.layers = layers;
     }
 
+    private initMosaic(): void {
+        let self = this;
+        self.imgMosaic = new egret.Bitmap();
+        const url: string = ResUrl.url(`mosaic`, ResourceType.MiniMap);
+        RES.getResByUrl(url, (data) => {
+            self.imgMosaic.texture = data;
+        }, self, RES.NCImg);
+    }
+
+    private addMosaic(): void {
+        this.root.addChildAt(this.imgMosaic, 0);
+    }
+
+    public updateMosaic(): void {
+        let self = this;
+        const imgMosaic: egret.Bitmap = self.imgMosaic;
+        if (MapLoader.Instance.isAllOk) {
+            imgMosaic.removeSelf();
+        } else {
+            if (imgMosaic.texture) {
+                if (!imgMosaic.parent) {
+                    self.addMosaic();
+                }
+                imgMosaic.width = mStage.width;
+                imgMosaic.height = mStage.height;
+            }
+        }
+    }
 
     private initScene(mapId: number): void {
         let self = this;
@@ -84,6 +110,8 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
 
     public changeScene(mapId: number): InstanceBase {
         let self = this;
+
+        self.addMosaic();
         gd.map.enterMap(mapId);
         self.destory();
         self.initScene(mapId);
