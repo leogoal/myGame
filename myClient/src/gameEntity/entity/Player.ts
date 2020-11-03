@@ -4,12 +4,15 @@ class Player {
     public static MAX_Y: number;
     public static MIN_Y: number;
 
-    private model: egret.Bitmap;
+    private model: eui.Rect;
 
     public addToView(): void {
-        this.model = new egret.Bitmap;
-        this.model.texture = RES.getRes("egret_icon_png");
-        this.model.scaleX = this.model.scaleY = 0.5;
+        this.model = new eui.Rect();
+        this.model.fillColor = 0xffffff;
+        this.model.width = 50;
+        this.model.height = 50;
+        this.model.anchorOffsetX = 25;
+        this.model.anchorOffsetY = 25;
         this.model.x = this._x;
         this.model.y = this._y;
         GameSceneManager.Instance.getLayer(E_SceneLayerType.Role).addChild(this.model);
