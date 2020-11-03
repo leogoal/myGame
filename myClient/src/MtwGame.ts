@@ -18,6 +18,8 @@ class MtwGame {
         self.offsetView.name = "offsetView";
         mStage.addChild(offsetView);
 
+        cursorPoint = new egret.Point();
+
         self.uiLayer = new UILayer();
         self.uiLayer.initContainer(offsetView);
 

@@ -7,6 +7,7 @@ declare let uim: UIManager;
 declare let ncm: NoticeManager;
 declare let emIns: EntityManager;
 declare let gd: DataManager;
+declare let cursorPoint: egret.Point;
 
 class GameDefine {
     public static BottomBorder: number = -100;

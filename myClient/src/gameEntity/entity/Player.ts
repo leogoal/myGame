@@ -1,9 +1,4 @@
 class Player {
-    public static MAX_X: number;
-    public static MIN_X: number;
-    public static MAX_Y: number;
-    public static MIN_Y: number;
-
     private model: eui.Rect;
 
     public addToView(): void {
@@ -22,7 +17,7 @@ class Player {
     private _y: number = 2000;
 
     public set x(value: number) {
-        if(value >= Player.MIN_X && value <= Player.MAX_X) {
+        if(value >= 0 && value <= gd.map.config.width) {
             this._x = value;
         }
         this.model.x = this._x;
@@ -33,7 +28,7 @@ class Player {
     }
 
     public set y(value: number) {
-        if(value >= Player.MIN_Y && value <= Player.MAX_Y) {
+        if(value >= 0 && value <= gd.map.config.height) {
             this._y = value;
         }
         this.model.y = this._y;

@@ -27,9 +27,9 @@ class ResUrl {
 				path = ResUrl.Model + childDic;
 				break;
 			case ResourceType.Map:
-				path = ResUrl.Map + childDic + fileName + ResUrl.JPGExt;
-				break;
-				// return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/assets/resource/map/" + childDic + fileName + ResUrl.JPGExt;
+				// path = ResUrl.Map + childDic + fileName + ResUrl.JPGExt;
+				// break;
+				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/assets/resource/map/" + childDic + fileName + ResUrl.JPGExt;
 			case ResourceType.Config:
 				// path = ResUrl.Config + fileName + ResUrl.JsonExt;
 				// break;

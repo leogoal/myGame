@@ -13,8 +13,8 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
     private mapConfig: MapConfig;
     private stageWIsGreaterMapW: boolean;
     private stageHIsGreaterMapH: boolean;
-    private screenX: number;
-    private screenY: number;
+    public screenX: number;
+    public screenY: number;
 
 
     public getLayer(layer: E_SceneLayerType): SceneLayer {
