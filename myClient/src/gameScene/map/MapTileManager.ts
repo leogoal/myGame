@@ -54,6 +54,10 @@ class MapTileManager {
     public initSize(screenX: number, screenY: number): void {
         let self = this;
 
+        if(isNaN(screenX) || isNaN(screenY)) {
+            return;
+        }
+
         if (screenX == undefined || screenY == undefined) {
             return;
         }

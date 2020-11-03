@@ -10,11 +10,13 @@ class Player {
         this.model = new egret.Bitmap;
         this.model.texture = RES.getRes("egret_icon_png");
         this.model.scaleX = this.model.scaleY = 0.5;
+        this.model.x = this._x;
+        this.model.y = this._y;
         GameSceneManager.Instance.getLayer(E_SceneLayerType.Role).addChild(this.model);
     }
 
-    private _x: number;
-    private _y: number;
+    private _x: number = 2000;
+    private _y: number = 2000;
 
     public set x(value: number) {
         if(value >= Player.MIN_X && value <= Player.MAX_X) {

@@ -18,8 +18,8 @@ class SingleARPGGame {
         GameSceneManager.Instance.enter();
 
         emIns.firstPlayer.addToView();
-        emIns.firstPlayer.x = 2000;
-        emIns.firstPlayer.y = 2000;
+
+        
         
     }
 }

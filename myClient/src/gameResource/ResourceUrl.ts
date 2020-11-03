@@ -31,10 +31,12 @@ class ResUrl {
 				break;
 			case ResourceType.Config:
 				path = ResUrl.Config + fileName + ResUrl.JsonExt;
-				break;
+				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.JsonExt;
+				// break;
 			case ResourceType.MapData:
 				path = ResUrl.Config + fileName + ResUrl.DatExt;
-				break;
+				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.DatExt;
+				// break;
 			case ResourceType.MiniMap:
 				path = ResUrl.MiniMap + fileName + ResUrl.JPGExt;
 				break;
