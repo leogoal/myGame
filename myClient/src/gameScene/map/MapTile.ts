@@ -73,7 +73,7 @@ class MapTile {
     public loadComplete(index: number, texture: egret.Texture): void {
         let self = this;
         if(self._index === index) {
-            if(texture) {
+            if(texture && self.bitmap) {
                 MapLoader.Instance.addTextureUse(index);
                 self.bitmap.texture = texture;
             }

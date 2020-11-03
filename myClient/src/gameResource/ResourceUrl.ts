@@ -29,14 +29,17 @@ class ResUrl {
 			case ResourceType.Map:
 				path = ResUrl.Map + childDic + fileName + ResUrl.JPGExt;
 				break;
+				// return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/assets/resource/map/" + childDic + fileName + ResUrl.JPGExt;
 			case ResourceType.Config:
-				path = ResUrl.Config + fileName + ResUrl.JsonExt;
-				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.JsonExt;
+				// path = ResUrl.Config + fileName + ResUrl.JsonExt;
 				// break;
+
+				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.JsonExt;	
 			case ResourceType.MapData:
-				path = ResUrl.Config + fileName + ResUrl.DatExt;
-				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.DatExt;
+				// path = ResUrl.Config + fileName + ResUrl.DatExt;
 				// break;
+
+				return "https://cdn.zzcq.app.9125flying.com/zhuzai_20201013/" + fileName + ResUrl.DatExt;			
 			case ResourceType.MiniMap:
 				path = ResUrl.MiniMap + fileName + ResUrl.JPGExt;
 				break;
