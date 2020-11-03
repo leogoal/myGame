@@ -4,9 +4,9 @@ class ConfigManager {
         cm = new ConfigManager();
     }
 
-    public mapDatas: { [key: number]: egret.ByteArray } = {};/**地图数据*/
-    
-    public map: {[id: number]: MapConfig} = {};
+    public mapDatas: { [key: number]: egret.ByteArray };/**地图数据*/
+
+    public map: { [id: number]: MapConfig } = {};
 
     private callback: Function;
     public initConfigData(callback: Function) {
@@ -19,10 +19,10 @@ class ConfigManager {
 
     private loadMapData(): void {
         let self = this;
-        if(loadingView) {
+        if (loadingView) {
             loadingView.showPregress(1, 10);
         }
-         
+
         let url: string = ResUrl.url(`map${my_gameVars.versionNumber}`, ResourceType.MapData);
         RES.getResByUrl(url, (res, url) => {
             //zlib解压缩
@@ -33,6 +33,7 @@ class ConfigManager {
 
             console.log(`解压后的地图文件大小为${bytes.bytesAvailable}字节`);
 
+            const mapDatas = {};
             let mapLength: number = bytes.readShort();
             while (mapLength > 0) {
                 const mapid: number = bytes.readInt();
@@ -41,9 +42,13 @@ class ConfigManager {
 
                 const tableContent: egret.ByteArray = new egret.ByteArray;
                 bytes.readBytes(tableContent, 0, len);
-                self.mapDatas[mapid] = tableContent;
+                mapDatas[mapid] = tableContent;
                 mapLength--;
             }
+            self.mapDatas = mapDatas;
+
+            self.doCallBack();
+
         }, self, RES.NOCache)
     }
 
@@ -72,9 +77,14 @@ class ConfigManager {
         const jsonfile = data;
         for (let fieldName in jsonfile) {
             self[fieldName] = jsonfile[fieldName];
-        } 
-        
-        if (self.loadedCount === self.TOTALLNUM) {
+        }
+
+        self.doCallBack();
+    }
+
+    private doCallBack(): void {
+        let self = this;
+        if (self.loadedCount === self.TOTALLNUM && self.mapDatas) {
             self.callback();
             self.callback = null;
         }
