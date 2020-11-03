@@ -17,7 +17,7 @@ class ARPGInstanceBase extends InstanceBase {
         cursorPoint.y = e.stageY;
 
         if(self.clickMoveTimer === 0) {
-            self.clickMoveTimer = egret.setInterval(self.checkClickMove, self, 200);
+            self.clickMoveTimer = egret.setInterval(self.checkClickMove, self, 10);
         }
     }
 
@@ -29,8 +29,8 @@ class ARPGInstanceBase extends InstanceBase {
 
         const firstPlay: Player = emIns.firstPlayer;
         const dir: number = DirectionUtil.getDIrectionByTowCoor(firstPlay.x, firstPlay.y, mx, my);
-        const changeX: number = 50;
-        const changeY: number = 50;
+        const changeX: number = 2;
+        const changeY: number = 2;
         
         firstPlay.x += changeX;
 
