@@ -84,7 +84,7 @@ class ConfigManager {
 
     private tryCallBack(): void {
         let self = this;
-        if (self.loadedCount === self.TOTALLNUM && self.mapDatas) {
+        if (self.loadedCount === self.TOTALLNUM && self.mapDatas && self.callback) {
             self.callback();
             self.callback = null;
         }
