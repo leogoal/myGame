@@ -175,9 +175,11 @@ class GameSceneManager implements IUpdateable, IUpdateLogicable {
                 }
             }
 
-            self.screenX = Math.floor(_screenX);
-            self.screenY = Math.floor(_screenY);
+            _screenX = Math.floor(_screenX);
+            _screenY = Math.floor(_screenY);
 
+            self.screenX = _screenX;
+            self.screenY = _screenY;
             self.root.x = _screenX;
             self.root.y = _screenY;
         }

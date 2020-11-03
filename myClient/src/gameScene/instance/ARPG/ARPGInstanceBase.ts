@@ -32,36 +32,38 @@ class ARPGInstanceBase extends InstanceBase {
         const changeX: number = 50;
         const changeY: number = 50;
         
-        switch (dir) {
-            case E_DirectionType.DOWN:
-                firstPlay.y += changeY
-                break;
-            case E_DirectionType.RIGHT_DOWN:
-                firstPlay.x += changeX;
-                firstPlay.y += changeY;
-                break;
-            case E_DirectionType.RIGHT:
-                firstPlay.x += changeX;
-                break;
-            case E_DirectionType.RIGHT_UP:
-                firstPlay.x += changeX,
-                firstPlay.y -= changeY;
-                break;
-            case E_DirectionType.UP:
-                firstPlay.y -= changeY;
-                break;
-            case E_DirectionType.LEFT_UP:
-                firstPlay.x -= changeX;
-                firstPlay.y -= changeY;
-                break;
-            case E_DirectionType.LEFT:
-                firstPlay.x -= changeX;
-                break;
-            case E_DirectionType.LEFT_DOWN:
-                firstPlay.x -= changeX;
-                firstPlay.y += changeY;
-                break;
-        }
+        firstPlay.x += changeX;
+
+        // switch (dir) {
+        //     case E_DirectionType.DOWN:
+        //         firstPlay.y += changeY
+        //         break;
+        //     case E_DirectionType.RIGHT_DOWN:
+        //         firstPlay.x += changeX;
+        //         firstPlay.y += changeY;
+        //         break;
+        //     case E_DirectionType.RIGHT:
+        //         firstPlay.x += changeX;
+        //         break;
+        //     case E_DirectionType.RIGHT_UP:
+        //         firstPlay.x += changeX,
+        //         firstPlay.y -= changeY;
+        //         break;
+        //     case E_DirectionType.UP:
+        //         firstPlay.y -= changeY;
+        //         break;
+        //     case E_DirectionType.LEFT_UP:
+        //         firstPlay.x -= changeX;
+        //         firstPlay.y -= changeY;
+        //         break;
+        //     case E_DirectionType.LEFT:
+        //         firstPlay.x -= changeX;
+        //         break;
+        //     case E_DirectionType.LEFT_DOWN:
+        //         firstPlay.x -= changeX;
+        //         firstPlay.y += changeY;
+        //         break;
+        // }
     }
 
     private onTouchEnd(e: egret.TouchEvent): void {
