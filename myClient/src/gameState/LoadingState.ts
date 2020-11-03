@@ -16,13 +16,19 @@ class LoadingState implements I_GameState {
             loadingView.showPregress(0, 1);
         }
         cm.initConfigData(() => {
-            
-            if(loadingView) {
+            this.clearLoadingView();
+            GameStateManager.Instance.changeGameState(E_GameStateType.Login);
+        })
+    }
+
+    private clearLoadingView(): void {
+        loadingView.showPregress(1, 1);
+        setTimeout(() => {
+            if (loadingView) {
                 loadingView.dispose();
                 loadingView = null;
             }
-            GameStateManager.Instance.changeGameState(E_GameStateType.Login);
-        })
+        }, 2000)
     }
 
     public exit(): void {
