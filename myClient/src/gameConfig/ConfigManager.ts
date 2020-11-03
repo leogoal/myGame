@@ -47,7 +47,7 @@ class ConfigManager {
             }
             self.mapDatas = mapDatas;
 
-            self.doCallBack();
+            self.tryCallBack();
 
         }, self, RES.NOCache)
     }
@@ -79,10 +79,10 @@ class ConfigManager {
             self[fieldName] = jsonfile[fieldName];
         }
 
-        self.doCallBack();
+        self.tryCallBack();
     }
 
-    private doCallBack(): void {
+    private tryCallBack(): void {
         let self = this;
         if (self.loadedCount === self.TOTALLNUM && self.mapDatas) {
             self.callback();
