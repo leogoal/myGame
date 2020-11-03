@@ -16,5 +16,10 @@ class SingleARPGGame {
 
         GameSceneManager.Instance.changeScene(gd.map.prepareMapId);
         GameSceneManager.Instance.enter();
+
+        emIns.firstPlayer.addToView();
+        emIns.firstPlayer.x = 2000;
+        emIns.firstPlayer.y = 2000;
+        
     }
 }
