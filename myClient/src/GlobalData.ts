@@ -9,6 +9,10 @@ declare let emIns: EntityManager;
 declare let gd: DataManager;
 declare let cursorPoint: egret.Point;
 
+declare class Long {
+	public toString(): string;
+}
+
 class GameDefine {
     public static BottomBorder: number = -100;
 

@@ -14,6 +14,13 @@ interface IUpdateLogicable {
     updateLogic(gameTime: GameTime): void;
 }
 
+interface I_TweenAble {
+    moveNext: boolean;
+    endNow: boolean;
+    x: number;
+    y: number;
+}
+
 interface I_GameEventHandler {
     centerEventHandler(eid: number, data: any);
 }
@@ -36,4 +43,17 @@ interface I_Instance {
 interface I_LimitedPoolItem {
     disposePermanent(): void;
     returnToPool(): void;
+}
+
+interface I_AnimationPlayer {
+    loadCompete();
+}
+
+interface I_EntityFSM {
+    getState(): E_FSMState;
+    enter(entity: Entity, stateLast: number): void;
+    canChangeState(): boolean;
+    execute(entity: Entity, gameTime: GameTime): void; 
+    executeLogic(entity: Entity, gameTile: GameTime): void;
+    exit(entity: Entity): void;
 }
