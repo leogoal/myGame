@@ -32,6 +32,19 @@ class MapData {
         this.config = cm.map[mapId];
     }
 
+    public hitTestCover(gridX: number, gridY: number): boolean {
+        let self = this;
+        if(!self._pathLayer) {
+            return false;
+        }
+        const id: number = self.getPointID(gridX, gridY);
+        return self._coverDic[id];
+    }
+
+    private getPointID(x: number, y:number): number {
+        return (x << 16) + y;
+    }
+
     private clearData(): void {
 		let self = this;
 		self._coverDic = {};

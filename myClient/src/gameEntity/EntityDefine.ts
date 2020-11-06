@@ -2,7 +2,7 @@ class EntityData {
     public x: number;
     public y: number;
     public gridX: number;
-    public girdY: number;
+    public gridY: number;
     public name: string;
     
     //1
@@ -13,7 +13,8 @@ class EntityMoveInfo {
     public speed: number;
     public x: number;
     public y: number;
-    public 
+    public gridX: number;
+    public gridY: number;
 }
 
 const enum E_GroupType {
