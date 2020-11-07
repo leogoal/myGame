@@ -1,6 +1,6 @@
 class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     constructor(id: Long, entityType: E_EntityType) {
-        if(id) {
+        if (id) {
             this.realUid = id;
             this.uid = id.toString();
         }
@@ -18,8 +18,8 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     public strategyTick: number;
     public layer: E_SceneLayerType;
     public moveInfo: EntityMoveInfo;
-    
-    
+
+
 
     public yeman: boolean = false;
     public isMove: boolean = false;
@@ -30,7 +30,7 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         return this._hideDisplay;
     }
     public set hideDisplay(value: boolean) {
-        if(this._hideDisplay !== value) {
+        if (this._hideDisplay !== value) {
             this._hideDisplay = value;
             this.checkDisplayInview();
         }
@@ -42,7 +42,7 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     }
     public set inView(value: boolean) {
         this._inView = value;
-    }   
+    }
 
     private _coverd: boolean = false;
     public get isCoverd(): boolean {
@@ -70,21 +70,21 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public update(gameTime: GameTime): void {
         let self = this;
-        if(self.curFSM) {
+        if (self.curFSM) {
             self.curFSM.execute(self, gameTime);
         }
     }
 
     public updateLogic(gameTime: GameTime): void {
         let self = this;
-        if(self.curFSM) {
+        if (self.curFSM) {
             self.curFSM.executeLogic(self, gameTime);
         }
     }
 
     public get moveNext(): boolean {
         return false;
-    } 
+    }
 
     public get endNow(): boolean {
         return false;
@@ -106,6 +106,9 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public addToView(): void {
         let self = this;
+        if(!self.display) {
+            
+        }
     }
 
     public removeFromView(): void {
@@ -116,13 +119,13 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         let self = this;
         self.entityData.gridX = gridX;
         self.entityData.gridY = gridY;
-        if(gd.map.hitTestCover(gridX, gridY)) {
-            if(!self._coverd) {
+        if (gd.map.hitTestCover(gridX, gridY)) {
+            if (!self._coverd) {
                 self._coverd = true;
                 self.display && (self.display.alpha = 0.6);
             }
         } else {
-            if(self.coverd) {
+            if (self.coverd) {
                 self.coverd = false;
                 self.display && (self.display.alpha = 1);
             }
@@ -140,7 +143,7 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     public set x(value: number) {
         let self = this;
         self.entityData.x = value;
-        if(self.display) {
+        if (self.display) {
             self.display.x = value;
         }
     }
@@ -152,7 +155,7 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     public set y(value: number) {
         let self = this;
         self.entityData.y = value;
-        if(self.display) {
+        if (self.display) {
             self.display.y = value;
         }
     }
@@ -164,8 +167,8 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     public updateRect(rect: egret.Rectangle, canAddView: boolean): boolean {
         let self = this;
         const nowInView: boolean = rect.contains(self.x, self.y);
-        if(nowInView !== self._inView) {
-            if(!canAddView && nowInView) {
+        if (nowInView !== self._inView) {
+            if (!canAddView && nowInView) {
                 return canAddView;
             }
             self._inView = nowInView;
@@ -178,16 +181,46 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public resetPosition(): void {
         let self = this;
-        if(self.tween && self.entityData) {
+        if (self.tween && self.entityData) {
             self.stopTween();
             self.x = Logic.getEntityPixelByGrid(self.entityData.gridX);
-            self.y = Logic.getEntityPixelByGrid(self.entityData.gridY); 
-            
+            self.y = Logic.getEntityPixelByGrid(self.entityData.gridY);
+            if (self.curFSM && self.curFSM.getState() === E_FSMState.FSM_STATE_FREE) {
+                self.changeFSMState(EntityMoveFSM.Instance);
+            }
+
         }
     }
 
+    public hitTest(mx: number, my: number, hitBox: boolean = false): boolean {
+        let self = this;
+        if (self._inView || !self.display) {
+            return false;
+        }
+        if (mx > -GameDefine.MAP_GRID_WIDTH_DIVIDE2 && mx < GameDefine.MAP_GRID_WIDTH_DIVIDE2 &&
+            my > -GameDefine.MAP_GRID_HEIGHT_DIVIDE2 && mx < GameDefine.MAP_GRID_HEIGHT_DIVIDE2
+        ) {
+            return true;
+        }
+        const hited: boolean = self.display.hitTest(mx, my, hitBox)
+        return hited;
+    }
+
+    public changeFSMState(newFSM: I_EntityFSM, stateLastTime: number = 0): void {
+        let self = this;
+        if (self.curFSM) {
+            if (!self.curFSM.canChangeState()) {
+                return;
+            }
+            self.curFSM.exit(self);
+        }
+
+        self.curFSM = newFSM;
+        self.curFSM.enter(self, stateLastTime);
+    }
+
     protected checkCoverd(): void {
-        if(this._coverd) {
+        if (this._coverd) {
             this.display && (this.display.alpha = 0.6);
         }
     }
@@ -195,17 +228,27 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     protected checkShow(): void {
 
     }
-    
+
     protected initDisplay(): void {
 
     }
 
+    public onEnterFree(): void {
 
+    }
+
+    public onEnterMove(): void {
+
+    }
+
+    public setBodyFilter(): void {
+
+    }
 
 
     private checkDisplayInview(): void {
         let self = this;
-        if(self._inView && !self._hideDisplay) {
+        if (self._inView && !self._hideDisplay) {
             !self.display && self.addToView();
         } else {
             self.display && self.removeFromView();

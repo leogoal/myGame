@@ -22,6 +22,8 @@ class GameDefine {
     
 	/**每格子的宽度 */
 	public static readonly MAP_GRID_WIDTH: number = 48;
+	public static readonly MAP_GRID_WIDTH_DIVIDE2: number = 24;
 	/**每格子的高度 */
 	public static readonly MAP_GRID_HEIGHT: number = 32;
+	public static readonly MAP_GRID_HEIGHT_DIVIDE2: number = 16;
 }

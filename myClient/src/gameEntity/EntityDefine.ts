@@ -24,5 +24,6 @@ const enum E_GroupType {
 }
 
 const enum E_FSMState {
-    FSM_STATE_FREE
+    FSM_STATE_FREE,
+    FSM_STATE_MOVE
 }
