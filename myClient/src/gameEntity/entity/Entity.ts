@@ -106,13 +106,22 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public addToView(): void {
         let self = this;
-        if(!self.display) {
-            
+        if (!self.display) {
+            self.initDisplay();
+            self.display.x = self.x;
+            self.display.y = self.y;
         }
+        self.display.inView = true;
+
+        const curSceneLayer: SceneLayer = GameSceneManager.Instance.getLayer(self.layer);
+        curSceneLayer.addChild(self.display);
+        curSceneLayer.needSort();
     }
 
     public removeFromView(): void {
-
+        let self = this;
+        self.display.removeSelf();
+        self.display.dispose();
     }
 
     public setPosition(gridX: number, gridY: number): void {
@@ -219,6 +228,32 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         self.curFSM.enter(self, stateLastTime);
     }
 
+    public prepareToMove(gridX: number, gridY: number, speed: number, isFirstPlayer: boolean, step: number): void {
+        let self = this;
+
+        const moveInfo = self.moveInfo;
+        moveInfo.gridX = gridX;
+        moveInfo.gridY = gridY;
+        moveInfo.x = Logic.getEntityPixelByGrid(gridX);
+        moveInfo.y = Logic.getEntityPixelByGrid(gridY);
+        if (self.entityData.gridX !== gridX && self.entityData.gridY !== gridY) {
+            speed *= 1.2;
+        } else if (self.entityData.gridY !== gridY) {
+            speed *= 0.66;
+        }
+        moveInfo.speed = speed;
+
+        if (!isFirstPlayer) {
+            self.setPosition(gridX, gridY);
+        }
+    }
+
+
+
+    public setBodyFilter(): void {
+
+    }
+
     protected checkCoverd(): void {
         if (this._coverd) {
             this.display && (this.display.alpha = 0.6);
@@ -241,10 +276,17 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     }
 
-    public setBodyFilter(): void {
-
+    public onExecuteMove(gameTime: GameTime): void {
+        let self = this;
+        if (self.tween && self.tween.enabled) {
+            self.tween.update(gameTime);
+            GameSceneManager.Instance.getLayer(self.layer).needSort();
+        }
     }
 
+    protected onMoveComplete(): void {
+
+    }
 
     private checkDisplayInview(): void {
         let self = this;
@@ -255,7 +297,34 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         }
     }
 
-    private onMoveComplete(gameTime: GameTime): void {
+    public dispose(): void {
+        let self = this;
+
+        self.yeman = false;
+        self.uid = null;
+        self.realUid = null;
+        self.enabled = false;
+        self._hideDisplay = false;
+        
+        if(self.entityData) {
+            self.entityData = null;
+        }
+        if(self.display) {
+            self.display.removeSelf();
+            self.display.dispose();
+            self.display = null;
+        }
+        if(self.entityAI) {
+            self.entityAI = null;
+        }
+        if(self.tween) {
+            self.tween.dispose();
+            self.tween = null;
+        }
+        if(self.curFSM) {
+            self.curFSM.exit(self);
+            self.curFSM = null;
+        }
 
     }
 }
