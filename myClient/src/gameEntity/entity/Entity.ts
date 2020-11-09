@@ -7,7 +7,6 @@ class Entity implements I_TweenAble {
         this.entityType = entityType;
     }
     
-    public enabled: boolean = true;
     public realUid: Long;
     public uid: string;
     public entityType: E_EntityType;
@@ -57,6 +56,25 @@ class Entity implements I_TweenAble {
 
     public get endNow(): boolean {
         return false;
+    }
+
+    private checkDisplayInview(): void {
+        let self = this;
+        if (self._inView && !self._hideDisplay) {
+            !self.display && self.addToView();
+        } else {
+            self.display && self.removeFromView();
+        }
+    }
+
+    protected checkCoverd(): void {
+        if (this._coverd) {
+            this.display && (this.display.alpha = 0.6);
+        }
+    }
+
+    protected initDisplay(): void {
+
     }
 
     public createComponents(entityData: EntityData): void {
@@ -176,31 +194,11 @@ class Entity implements I_TweenAble {
         return hited;
     }
 
-    protected checkCoverd(): void {
-        if (this._coverd) {
-            this.display && (this.display.alpha = 0.6);
-        }
-    }
-
-    protected initDisplay(): void {
-
-    }
-
-    private checkDisplayInview(): void {
-        let self = this;
-        if (self._inView && !self._hideDisplay) {
-            !self.display && self.addToView();
-        } else {
-            self.display && self.removeFromView();
-        }
-    }
-
     public dispose(): void {
         let self = this;
     
         self.uid = null;
         self.realUid = null;
-        self.enabled = false;
         self._hideDisplay = false;
 
         if(self.entityData) {

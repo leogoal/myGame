@@ -1,7 +1,38 @@
-class EntityDataCreator {
-    public static playerDataPool: LimitedPool<PlayerData> = new LimitedPool<PlayerData>(PlayerData, 60);
+const enum E_GroupType {
+    SELF = 1,
+    GUAJI,
+    FIGHT,
 }
 
+const enum E_FSMState {
+    FSM_STATE_FREE,
+    FSM_STATE_MOVE
+}
+
+const enum E_EntityType {
+    PLAYER
+}
+
+const enum E_ActionType {
+    Idle = 1,
+    Walk,
+    Run,
+
+    Die = 10
+}
+
+const enum E_AnimationType {
+    Monster,
+    Body,
+    Weapon,
+    FWeapon, //盾
+    Hat, //斗笠
+    Wing,
+    Effect,
+    WEAPON_EFFECT,
+}
+
+/**************************************************************************************************************************************** */
 class EntityData {
     public x: number;
     public y: number;
@@ -31,6 +62,10 @@ class PlayerData extends AnimalEntityData implements I_LimitedPoolItem {
         let self = this;
         EntityDataCreator.playerDataPool.push(self);
     }
+}
+
+class EntityDataCreator {
+    public static playerDataPool: LimitedPool<PlayerData> = new LimitedPool<PlayerData>(PlayerData, 60);
 }
 
 class EntityMoveInfo {
@@ -77,36 +112,3 @@ class SkinSorts {
     ];
 }
 
-const enum E_GroupType {
-    SELF = 1,
-    GUAJI,
-    FIGHT,
-}
-
-const enum E_FSMState {
-    FSM_STATE_FREE,
-    FSM_STATE_MOVE
-}
-
-const enum E_EntityType {
-    PLAYER
-}
-
-const enum E_ActionType {
-    Idle = 1,
-    Walk,
-    Run,
-
-    Die = 10
-}
-
-const enum E_AnimationType {
-    Monster,
-    Body,
-    Weapon,
-    FWeapon, //盾
-    Hat, //斗笠
-    Wing,
-    Effect,
-    WEAPON_EFFECT,
-}

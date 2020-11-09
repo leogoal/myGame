@@ -6,6 +6,11 @@ class Player extends AnimalEntity {
         return this._playerData;
     }
 
+    private initEquipments(): void {
+        let self = this;
+    }
+
+
     public createComponents(entityData: EntityData): void {
         let self = this;
         super.createComponents(entityData);
@@ -28,14 +33,11 @@ class Player extends AnimalEntity {
         self.setAction(self.action, self.getRealDir(self.dir), true);
     }
 
-    private initEquipments(): void {
-        let self = this;
-    }
 
     public setPosition(gridX: number, gridY: number): void {
         super.setPosition(gridX, gridY);
         let self = this;
-        if(self === emIns.firstPlayer) {
+        if (self === emIns.firstPlayer) {
             self.checkFront();
         }
     }
@@ -44,7 +46,7 @@ class Player extends AnimalEntity {
         let self = this;
         super.dispose();
         self.yeman = false;
-        if(self.playerData) {
+        if (self.playerData) {
             self._playerData.dispose();
             self._playerData = null;
         }

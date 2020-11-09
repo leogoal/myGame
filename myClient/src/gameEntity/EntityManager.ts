@@ -1,7 +1,7 @@
 class EntityManager implements IUpdateable, IUpdateLogicable {
     public enabled: boolean = false;
 
-    public firstPlayer: Player = new Player();
+    public firstPlayer: Player;
 
     public static init(): void {
         emIns = new EntityManager();

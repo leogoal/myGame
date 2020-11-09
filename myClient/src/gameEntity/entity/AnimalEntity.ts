@@ -3,6 +3,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
     protected isWalk: boolean = false;
     protected tween: Tween;
 
+    public enabled: boolean = true;
     public curFSM: I_EntityFSM;
     public action: E_ActionType;
     public dir: number = EntityDirectionType.DEFAULT;
@@ -22,6 +23,25 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         return this._entityAI;
     }
 
+    protected changeSkins(): void {
+
+    }
+
+    protected getRealDir(dir: number) {
+        return dir;
+    }
+
+    protected initDisplay(): void {
+        let self = this;
+        self.display = AnimationPlayer.create();
+        self.display.completeHandler = new CallBack0(self.animationComplete, self);
+        self.checkCoverd();
+    }
+
+    protected checkFront(): void {
+
+    }
+
     public createComponents(entityData: EntityData): void {
         let self = this;
         super.createComponents(entityData);
@@ -38,12 +58,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         self.dir = self.animalEntityData.dir;
     }
 
-    protected initDisplay(): void {
-        let self = this;
-        self.display = AnimationPlayer.create();
-        self.display.completeHandler = new CallBack0(self.animationComplete, self);
-        self.checkCoverd();
-    }
+    
 
     private animationComplete(): void {
         let self = this;
@@ -60,14 +75,6 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
             self._seat = true;
         }
         super.setPosition(gridX, gridY);
-    }
-
-    protected changeSkins(): void {
-
-    }
-
-    protected getRealDir(dir: number) {
-        return dir;
     }
 
     public setAction(action: E_ActionType, dir: number = -1, compolsury: boolean = false) {
@@ -133,7 +140,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         self.setAction(E_ActionType.Idle, self.getRealDir(self.dir));
     }
 
-    protected onMoveComplete(self: any, totalGameTime: number): void {
+    private onMoveComplete(self: any, totalGameTime: number): void {
         self.isMove = false;
         if (self.entityAI) {
             self.entityAI.moveComplete(self, totalGameTime);
@@ -207,13 +214,13 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         self.createComponents(self.animalEntityData);
     }
 
-    protected checkFront(): void {
-
-    }
+    
 
     public dispose(): void {
         let self = this;
         super.dispose();
+
+        self.enabled = false;
 
         if (self.curFSM) {
             self.curFSM.exit(self);
