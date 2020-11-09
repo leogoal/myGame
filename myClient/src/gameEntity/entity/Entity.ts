@@ -1,4 +1,4 @@
-class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
+class Entity implements I_TweenAble {
     constructor(id: Long, entityType: E_EntityType) {
         if (id) {
             this.realUid = id;
@@ -6,25 +6,16 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         }
         this.entityType = entityType;
     }
-    protected tween: Tween;
-
+    
     public enabled: boolean = true;
     public realUid: Long;
     public uid: string;
     public entityType: E_EntityType;
-    public entityData: EntityData;
+    private entityData: EntityData;
     public display: AnimationPlayer;
-    public curFSM: I_EntityFSM;
     public strategyTick: number;
     public layer: E_SceneLayerType;
-    public moveInfo: EntityMoveInfo;
-
-
-
-    public yeman: boolean = false;
-    public isMove: boolean = false;
-    public pathArr: Array<Array<number>>;
-
+    
     private _hideDisplay: boolean = false;
     public get isHideDisplay(): boolean {
         return this._hideDisplay;
@@ -52,34 +43,12 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         this._coverd = value;
     }
 
-    private _entityAI: ArpgAI;
-    public set entityAI(ai: ArpgAI) {
-        this._entityAI = ai;
-    }
-    public get entityAI(): ArpgAI {
-        return this._entityAI;
-    }
-
     private _busy: number = 0;
     public set busy(time: number) {
 
     }
     public get isBusy(): boolean {
         return false;
-    }
-
-    public update(gameTime: GameTime): void {
-        let self = this;
-        if (self.curFSM) {
-            self.curFSM.execute(self, gameTime);
-        }
-    }
-
-    public updateLogic(gameTime: GameTime): void {
-        let self = this;
-        if (self.curFSM) {
-            self.curFSM.executeLogic(self, gameTime);
-        }
     }
 
     public get moveNext(): boolean {
@@ -91,17 +60,8 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
     }
 
     public createComponents(entityData: EntityData): void {
-        let self = this;
-        self.moveInfo = new EntityMoveInfo();
+        let self = this;     
         self.entityData = entityData;
-
-        self.tween = Tween.create();
-        self.tween.init(self, self.onMoveComplete);
-
-    }
-
-    public stopTween(): void {
-        this.tween && this.tween.stop();
     }
 
     public addToView(): void {
@@ -154,6 +114,9 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         self.entityData.x = value;
         if (self.display) {
             self.display.x = value;
+            if(self.display.shadow) {
+
+            }
         }
     }
 
@@ -166,6 +129,9 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         self.entityData.y = value;
         if (self.display) {
             self.display.y = value;
+            if(self.display.shadow) {
+
+            }
         }
     }
 
@@ -190,14 +156,9 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public resetPosition(): void {
         let self = this;
-        if (self.tween && self.entityData) {
-            self.stopTween();
+        if (self.entityData) {
             self.x = Logic.getEntityPixelByGrid(self.entityData.gridX);
             self.y = Logic.getEntityPixelByGrid(self.entityData.gridY);
-            if (self.curFSM && self.curFSM.getState() === E_FSMState.FSM_STATE_FREE) {
-                self.changeFSMState(EntityMoveFSM.Instance);
-            }
-
         }
     }
 
@@ -215,76 +176,13 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
         return hited;
     }
 
-    public changeFSMState(newFSM: I_EntityFSM, stateLastTime: number = 0): void {
-        let self = this;
-        if (self.curFSM) {
-            if (!self.curFSM.canChangeState()) {
-                return;
-            }
-            self.curFSM.exit(self);
-        }
-
-        self.curFSM = newFSM;
-        self.curFSM.enter(self, stateLastTime);
-    }
-
-    public prepareToMove(gridX: number, gridY: number, speed: number, isFirstPlayer: boolean, step: number): void {
-        let self = this;
-
-        const moveInfo = self.moveInfo;
-        moveInfo.gridX = gridX;
-        moveInfo.gridY = gridY;
-        moveInfo.x = Logic.getEntityPixelByGrid(gridX);
-        moveInfo.y = Logic.getEntityPixelByGrid(gridY);
-        if (self.entityData.gridX !== gridX && self.entityData.gridY !== gridY) {
-            speed *= 1.2;
-        } else if (self.entityData.gridY !== gridY) {
-            speed *= 0.66;
-        }
-        moveInfo.speed = speed;
-
-        if (!isFirstPlayer) {
-            self.setPosition(gridX, gridY);
-        }
-    }
-
-
-
-    public setBodyFilter(): void {
-
-    }
-
     protected checkCoverd(): void {
         if (this._coverd) {
             this.display && (this.display.alpha = 0.6);
         }
     }
 
-    protected checkShow(): void {
-
-    }
-
     protected initDisplay(): void {
-
-    }
-
-    public onEnterFree(): void {
-
-    }
-
-    public onEnterMove(): void {
-
-    }
-
-    public onExecuteMove(gameTime: GameTime): void {
-        let self = this;
-        if (self.tween && self.tween.enabled) {
-            self.tween.update(gameTime);
-            GameSceneManager.Instance.getLayer(self.layer).needSort();
-        }
-    }
-
-    protected onMoveComplete(): void {
 
     }
 
@@ -299,13 +197,12 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
 
     public dispose(): void {
         let self = this;
-
-        self.yeman = false;
+    
         self.uid = null;
         self.realUid = null;
         self.enabled = false;
         self._hideDisplay = false;
-        
+
         if(self.entityData) {
             self.entityData = null;
         }
@@ -314,21 +211,5 @@ class Entity implements IUpdateable, IUpdateLogicable, I_TweenAble {
             self.display.dispose();
             self.display = null;
         }
-        if(self.entityAI) {
-            self.entityAI = null;
-        }
-        if(self.tween) {
-            self.tween.dispose();
-            self.tween = null;
-        }
-        if(self.curFSM) {
-            self.curFSM.exit(self);
-            self.curFSM = null;
-        }
-
     }
-}
-
-const enum E_EntityType {
-    PLAYER
 }

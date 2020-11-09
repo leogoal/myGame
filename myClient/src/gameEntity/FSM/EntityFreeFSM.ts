@@ -8,17 +8,17 @@ class EntityFreeFSM implements I_EntityFSM {
         return true;
     }
 
-    public enter(entity: Entity, stateLast: number): void {
+    public enter(entity: AnimalEntity, stateLast: number): void {
         entity.onEnterFree();
     }
 
-    public execute(entity: Entity, gameTime: GameTime): void {
+    public execute(entity: AnimalEntity, gameTime: GameTime): void {
 
     }
-    public executeLogic(entity: Entity, gameTile: GameTime): void {
+    public executeLogic(entity: AnimalEntity, gameTile: GameTime): void {
 
     }
-    public exit(entity: Entity): void {
+    public exit(entity: AnimalEntity): void {
 
     }
 }

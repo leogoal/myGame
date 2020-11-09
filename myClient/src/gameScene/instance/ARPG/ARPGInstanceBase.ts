@@ -28,7 +28,7 @@ class ARPGInstanceBase extends InstanceBase {
         const my: number = cursorPoint.y - GameSceneManager.Instance.screenY;
 
         const firstPlay: Player = emIns.firstPlayer;
-        const dir: number = DirectionUtil.getDIrectionByTowCoor(firstPlay.x, firstPlay.y, mx, my);
+        const dir: number = DirectionUtil.getDirectionByTwoPoints(firstPlay.x, firstPlay.y, mx, my);
         const changeX: number = 2;
         const changeY: number = 2;
         

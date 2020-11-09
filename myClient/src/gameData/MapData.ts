@@ -144,4 +144,12 @@ class MapData {
         self._pathLayer = new PathLayer();
         self._pathLayer.initBlocks(self.config.width, self.config.height, GameDefine.MAP_GRID_WIDTH, GameDefine.MAP_GRID_HEIGHT, self._mapIndex);
     }
+
+    public removeUnWalk(x: number, y: number): void {
+		this._pathLayer.removeUnWalk(x, y);
+	}
+
+    public addUnWalk(x: number, y: number): void {
+		this._pathLayer.addUnWalk(x, y);
+	}
 }

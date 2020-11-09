@@ -51,9 +51,9 @@ interface I_AnimationPlayer {
 
 interface I_EntityFSM {
     getState(): E_FSMState;
-    enter(entity: Entity, stateLast: number): void;
+    enter(entity: AnimalEntity, stateLast: number): void;
     canChangeState(): boolean;
-    execute(entity: Entity, gameTime: GameTime): void; 
-    executeLogic(entity: Entity, gameTile: GameTime): void;
-    exit(entity: Entity): void;
+    execute(entity: AnimalEntity, gameTime: GameTime): void; 
+    executeLogic(entity: AnimalEntity, gameTile: GameTime): void;
+    exit(entity: AnimalEntity): void;
 }

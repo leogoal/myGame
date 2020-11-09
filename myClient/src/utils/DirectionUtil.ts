@@ -11,7 +11,7 @@ const enum E_DirectionType {
 
 class DirectionUtil {
 
-    public static getDIrectionByTowCoor(fx: number, fy: number, tx: number, ty: number): number {
+    public static getDirectionByTwoPoints(fx: number, fy: number, tx: number, ty: number): number {
         const hor: number = tx - fx;
         const ver: number = ty - fy;
         return this.getDir(hor, ver);
