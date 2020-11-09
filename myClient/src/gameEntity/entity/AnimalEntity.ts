@@ -9,7 +9,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
     public astarStandOn: boolean;
     public isCoverByMonster: boolean;
     public animalEntityData: AnimalEntityData;
-    public yeman: boolean = false;
+    
     public moveInfo: EntityMoveInfo;
     public isMove: boolean = false;
     public pathArr: Array<Array<number>>;
@@ -60,10 +60,6 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
             self._seat = true;
         }
         super.setPosition(gridX, gridY);
-    }
-
-    protected initEquipments(): void {
-        this.changeSkins();
     }
 
     protected changeSkins(): void {
@@ -171,6 +167,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
     public prepareToMove(gridX: number, gridY: number, speed: number, isFirstPlayer: boolean, step: number): void {
         let self = this;
 
+        self.isWalk = step === 2 ? false : true;
         const moveInfo = self.moveInfo;
         moveInfo.gridX = gridX;
         moveInfo.gridY = gridY;
@@ -210,11 +207,14 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         self.createComponents(self.animalEntityData);
     }
 
+    protected checkFront(): void {
+
+    }
+
     public dispose(): void {
         let self = this;
         super.dispose();
 
-        self.yeman = false;
         if (self.curFSM) {
             self.curFSM.exit(self);
             self.curFSM = null;
@@ -229,5 +229,12 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
         if (self.moveInfo) {
             self.moveInfo = null;
         }
+        if(self._seat) {
+            gd.map.removeUnWalk(self.animalEntityData.gridX, self.animalEntityData.gridY);
+            self._seat = false;
+        }
+        if(self.animalEntityData) {
+            self.animalEntityData = null;
+        } 
     }
 }

@@ -1,40 +1,52 @@
-class Player {
-    private model: eui.Rect;
+class Player extends AnimalEntity {
+    private _playerData: PlayerData;
+    public yeman: boolean = false;
 
-    public addToView(): void {
-        this.model = new eui.Rect();
-        this.model.fillColor = 0xffffff;
-        this.model.width = 50;
-        this.model.height = 50;
-        this.model.anchorOffsetX = 25;
-        this.model.anchorOffsetY = 25;
-        this.model.x = this._x;
-        this.model.y = this._y;
-        GameSceneManager.Instance.getLayer(E_SceneLayerType.Role).addChild(this.model);
+    public get playerData(): PlayerData {
+        return this._playerData;
     }
 
-    private _x: number = 2000;
-    private _y: number = 2000;
+    public createComponents(entityData: EntityData): void {
+        let self = this;
+        super.createComponents(entityData);
+        self._playerData = entityData as PlayerData;
+        self.tween.bindMoveStepCB(self.onMoveStep);
+    }
 
-    public set x(value: number) {
-        if(value >= 0 && value <= gd.map.config.width) {
-            this._x = value;
+    private onMoveStep(entity: Player): void {
+        let self = entity;
+        if (self.yeman) {
+
         }
-        this.model.x = this._x;
     }
 
-    public get x(): number {
-        return this._x;
+    protected initDisplay(): void {
+        super.initDisplay();
+        let self = this;
+        self.display.setPrority(E_GroupType.SELF === self.playerData.group ? 1 : 0);
+        self.display.setSortMethod(true, SkinSorts.stand_dir_type_sort, SkinSorts.move_dir_type_sort);
+        self.setAction(self.action, self.getRealDir(self.dir), true);
     }
 
-    public set y(value: number) {
-        if(value >= 0 && value <= gd.map.config.height) {
-            this._y = value;
+    private initEquipments(): void {
+        let self = this;
+    }
+
+    public setPosition(gridX: number, gridY: number): void {
+        super.setPosition(gridX, gridY);
+        let self = this;
+        if(self === emIns.firstPlayer) {
+            self.checkFront();
         }
-        this.model.y = this._y;
     }
 
-    public get y(): number {
-        return this._y;
+    public dispose(): void {
+        let self = this;
+        super.dispose();
+        self.yeman = false;
+        if(self.playerData) {
+            self._playerData.dispose();
+            self._playerData = null;
+        }
     }
 }
