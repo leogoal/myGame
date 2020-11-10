@@ -21,7 +21,7 @@ const enum E_ActionType {
     Die = 10
 }
 
-const enum E_AnimationType {
+const enum E_SkinType {
     Monster,
     Body,
     Weapon,
@@ -86,29 +86,32 @@ class EntityDirectionType {
     public static readonly LEFT_UP: number = 5;
     public static readonly LEFT: number = 6;
     public static readonly LEFT_DOWN: number = 7;
-}
+
+    public static readonly EIGHT_FIVE_DIRS: number[] = [0, 1, 2, 3, 4, 3, 2, 1];
+    public static readonly EIGHT_TWO_DIRS: number[] = [1, 1, 1, 3, 3, 3, 1, 1];
+ }
 
 class SkinSorts {
-    public static readonly stand_dir_type_sort: Array<Array<E_AnimationType>> = [
-        [E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//0
-        [E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//1
-        [E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//2
-        [E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.Wing, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//3
-        [E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.Wing, E_AnimationType.WEAPON_EFFECT],//4
-        [E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.Wing, E_AnimationType.WEAPON_EFFECT],//3
-        [E_AnimationType.FWeapon, E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.WEAPON_EFFECT],//2
-        [E_AnimationType.Wing, E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.WEAPON_EFFECT],//1
+    public static readonly stand_dir_type_sort: Array<Array<E_SkinType>> = [
+        [E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//0
+        [E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//1
+        [E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//2
+        [E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.Wing, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//3
+        [E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.Wing, E_SkinType.WEAPON_EFFECT],//4
+        [E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.Wing, E_SkinType.WEAPON_EFFECT],//3
+        [E_SkinType.FWeapon, E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.WEAPON_EFFECT],//2
+        [E_SkinType.Wing, E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.WEAPON_EFFECT],//1
     ];
 
-    public static readonly move_dir_type_sort: Array<Array<E_AnimationType>> = [
-        [E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//0
-        [E_AnimationType.Wing, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//1
-        [E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Wing, E_AnimationType.Weapon, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//2
-        [E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.Wing, E_AnimationType.FWeapon, E_AnimationType.WEAPON_EFFECT],//3
-        [E_AnimationType.FWeapon, E_AnimationType.Weapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Wing, E_AnimationType.WEAPON_EFFECT],//4
-        [E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.Wing, E_AnimationType.WEAPON_EFFECT],//3
-        [E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Wing, E_AnimationType.Weapon, E_AnimationType.WEAPON_EFFECT],//2
-        [E_AnimationType.Wing, E_AnimationType.FWeapon, E_AnimationType.Body, E_AnimationType.Hat, E_AnimationType.Weapon, E_AnimationType.WEAPON_EFFECT],//1
+    public static readonly move_dir_type_sort: Array<Array<E_SkinType>> = [
+        [E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//0
+        [E_SkinType.Wing, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//1
+        [E_SkinType.Body, E_SkinType.Hat, E_SkinType.Wing, E_SkinType.Weapon, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//2
+        [E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.Wing, E_SkinType.FWeapon, E_SkinType.WEAPON_EFFECT],//3
+        [E_SkinType.FWeapon, E_SkinType.Weapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Wing, E_SkinType.WEAPON_EFFECT],//4
+        [E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.Wing, E_SkinType.WEAPON_EFFECT],//3
+        [E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Wing, E_SkinType.Weapon, E_SkinType.WEAPON_EFFECT],//2
+        [E_SkinType.Wing, E_SkinType.FWeapon, E_SkinType.Body, E_SkinType.Hat, E_SkinType.Weapon, E_SkinType.WEAPON_EFFECT],//1
     ];
 }
 

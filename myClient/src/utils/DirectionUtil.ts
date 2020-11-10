@@ -1,14 +1,3 @@
-const enum E_DirectionType {
-    DOWN,
-    RIGHT_DOWN,
-    RIGHT,
-    RIGHT_UP,
-    UP,
-    LEFT_UP,
-    LEFT,
-    LEFT_DOWN
-}
-
 class DirectionUtil {
 
     public static getDirectionByTwoPoints(fx: number, fy: number, tx: number, ty: number): number {
@@ -21,23 +10,23 @@ class DirectionUtil {
         let dir: number = 0;
         if (hor > 0) {//右
             if (ver < 0)//上
-                dir = E_DirectionType.RIGHT_UP;
+                dir = EntityDirectionType.RIGHT_UP;
             else if (ver > 0)
-                dir = E_DirectionType.RIGHT_DOWN;
+                dir = EntityDirectionType.RIGHT_DOWN;
             else
-                dir = E_DirectionType.RIGHT;
+                dir = EntityDirectionType.RIGHT;
         } else if (hor < 0) {//左
             if (ver < 0)//上
-                dir = E_DirectionType.LEFT_UP;
+                dir = EntityDirectionType.LEFT_UP;
             else if (ver > 0)
-                dir = E_DirectionType.LEFT_DOWN;
+                dir = EntityDirectionType.LEFT_DOWN;
             else
-                dir = E_DirectionType.LEFT;
+                dir = EntityDirectionType.LEFT;
         } else {
             if (ver < 0)
-                dir = E_DirectionType.UP;
+                dir = EntityDirectionType.UP;
             else
-                dir = E_DirectionType.DOWN;
+                dir = EntityDirectionType.DOWN;
         }
         return dir;
     }

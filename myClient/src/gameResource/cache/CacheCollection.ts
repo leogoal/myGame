@@ -243,7 +243,9 @@ class CacheCollection {
         return item ? item.data : null;
     }
 
-
+    public getGroupKeys(type: number): number[] {
+        return this.types[type];
+    }
 }
 
 class CacheItem {

@@ -202,7 +202,7 @@ class AnimalEntity extends Entity implements IUpdateable, IUpdateLogicable {
 
     public die(): void {
         let self = this;
-        self.setAction(E_ActionType.Die, E_DirectionType.DOWN);
+        self.setAction(E_ActionType.Die, EntityDirectionType.DOWN);
         if (self._seat) {
             gd.map.removeUnWalk(self.animalEntityData.gridX, self.animalEntityData.gridY);
             self._seat = false;
