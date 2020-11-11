@@ -23,8 +23,11 @@ class ResUrl {
 
 
 		switch (resType) {
-			case ResourceType.Model:
-				path = ResUrl.Model + childDic;
+			case ResourceType.Model_PNG:
+				path = ResUrl.Model + childDic + fileName + ResUrl.PNGExt;
+				break;
+			case ResourceType.Model_JSON:
+				path = ResUrl.Model + childDic + fileName + ResUrl.JsonExt;
 				break;
 			case ResourceType.Map:
 				// path = ResUrl.Map + childDic + fileName + ResUrl.JPGExt;
@@ -58,7 +61,8 @@ class ResUrl {
 const enum ResourceType {
 	MapData,
 	Config,
-	Model,
+	Model_PNG,
+	Model_JSON,
 	Map,
 	MiniMap,
 	Audio,
