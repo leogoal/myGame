@@ -1,7 +1,7 @@
 class CacheManager implements IUpdateable {
     public static readonly Instance: CacheManager = new CacheManager();
     public enabled: boolean = true;
-    public cacheSize: number = 0;
+    public modelSkinSize: number = 0;
 
     public skinCache: CacheCollection;
     public mapCache: CacheCollection;
@@ -30,7 +30,7 @@ class CacheManager implements IUpdateable {
         let self = this;
         const totalGameTime: number = GameTime.Instance.totalGameTime;
 
-        if (self.cacheSize > Capability.MB18XSD5) {
+        if (self.modelSkinSize > Capability.MB18XSD5) {
             self.skinCache.removeReferenceT(sourceName, totalGameTime + Capability.IMPERATIVE_TIME);
         } else {
             if (self.isNodirectionAnimation(model)) {

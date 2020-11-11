@@ -5,8 +5,8 @@ class ConfigManager {
     }
 
     public mapDatas: { [key: number]: egret.ByteArray };/**地图数据*/
-
     public map: { [id: number]: MapConfig } = {};
+    public modelInfo: { [key: number]: { [key: number]: ModelInfoConfig } } = {};
 
     private callback: Function;
     public initConfigData(callback: Function) {

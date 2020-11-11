@@ -85,7 +85,7 @@ class AnimationPlayer extends egret.DisplayObjectContainer implements I_LimitedP
         delete self.dataList[skinType];
     }
 
-    private addSkinClip(skinType: number): void {
+    private addSkinClip(skinType: E_SkinType): void {
         let self = this;
         const animations: { [key: number]: CustomMovie } = self.animations;
         if (!(skinType in animations)) {
@@ -104,7 +104,7 @@ class AnimationPlayer extends egret.DisplayObjectContainer implements I_LimitedP
         }
     }
 
-    private removeSkinClip(skinType: number): void {
+    private removeSkinClip(skinType: E_SkinType): void {
         let self = this;
         const curSkinCustomMovie: CustomMovie = self.animations[skinType];
         curSkinCustomMovie && curSkinCustomMovie.dispose();
@@ -126,7 +126,7 @@ class AnimationPlayer extends egret.DisplayObjectContainer implements I_LimitedP
             let data: AnimationPlayerData;
             for (let key of keys) {
                 data = CacheManager.Instance.skinCache.getItemData(key);
-                data && dataSet.addData();
+                data && dataSet.addData(data.action, data.realDir, data);
             }
         }
     }
@@ -211,19 +211,28 @@ class AnimationPlayer extends egret.DisplayObjectContainer implements I_LimitedP
 
         let dataSet: AnimationPlayerDataSet;
         let clip: AnimationClip;
+        let frameLen: number = 0;
         const dataList = self.dataList;
         for (let skinType in dataList) {
             dataSet = dataList[skinType];
             if (dataSet) {
-                const realDir: number = dataSet.getDir(action, dir);
+                const realDir: number = dataSet.getRealDir(action, dir);
                 let data: AnimationPlayerData = dataSet.getData(action, dir);
                 if(!data || !data.clip) {
                     const sourceId: number = ResUrl.getSourceID(dataSet.model, action, dir);
                     data = CacheManager.Instance.skinCache.getItemData(sourceId);
                     if(data) {
-                        dataSet.addData()
+                        dataSet.addData(action, realDir, data);
+                    } else {
+                        // dataSet.loadSkin();
                     }
+                } else {
+                    // clip = data.clip;
+                    // if(clip) {
+                    //     frameLen = clip.
+                    // }
                 }
+
             }
         }
 
